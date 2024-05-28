@@ -18,7 +18,7 @@ if (isset($_POST['update_staff_account'])) {
     move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "../admin/dist/img/" . $_FILES["profile_pic"]["name"]);
 
     //Insert Captured information to a database table
-    $query = "UPDATE iB_staff SET name=?, phone=?, email=?, sex=?, profile_pic=? WHERE staff_id=?";
+    $query = "UPDATE ib_staff SET name=?, phone=?, email=?, sex=?, profile_pic=? WHERE staff_id=?";
     $stmt = $mysqli->prepare($query);
     //bind paramaters
     $rc = $stmt->bind_param('sssssi', $name, $phone, $email, $sex, $profile_pic, $staff_id);
@@ -36,7 +36,7 @@ if (isset($_POST['change_staff_password'])) {
     $password = sha1(md5($_POST['password']));
     $staff_id = $_SESSION['staff_id'];
     //insert unto certain table in database
-    $query = "UPDATE iB_staff  SET password=? WHERE  staff_id=?";
+    $query = "UPDATE ib_staff  SET password=? WHERE  staff_id=?";
     $stmt = $mysqli->prepare($query);
     //bind paramaters
     $rc = $stmt->bind_param('si', $password, $staff_id);
@@ -71,7 +71,7 @@ if (isset($_POST['change_staff_password'])) {
             <!-- Content Header with logged in user details (Page header) -->
             <?php
             $staff_id = $_SESSION['staff_id'];
-            $ret = "SELECT * FROM  iB_staff  WHERE staff_id = ? ";
+            $ret = "SELECT * FROM  ib_staff  WHERE staff_id = ? ";
             $stmt = $mysqli->prepare($ret);
             $stmt->bind_param('i', $staff_id);
             $stmt->execute(); //ok

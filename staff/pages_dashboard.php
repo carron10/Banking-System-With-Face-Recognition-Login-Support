@@ -8,7 +8,7 @@ $staff_id = $_SESSION['staff_id'];
 //clear notifications and alert user that they are cleared
 if (isset($_GET['Clear_Notifications'])) {
   $id = intval($_GET['Clear_Notifications']);
-  $adn = "DELETE FROM  iB_notifications  WHERE notification_id = ?";
+  $adn = "DELETE FROM  ib_notifications  WHERE notification_id = ?";
   $stmt = $mysqli->prepare($adn);
   $stmt->bind_param('i', $id);
   $stmt->execute();
@@ -35,7 +35,7 @@ $stmt->fetch();
 $stmt->close();
 
 //return total number of iBank Staffs
-$result = "SELECT count(*) FROM iB_staff";
+$result = "SELECT count(*) FROM ib_staff";
 $stmt = $mysqli->prepare($result);
 $stmt->execute();
 $stmt->bind_result($iBStaffs);

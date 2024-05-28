@@ -63,7 +63,7 @@ if (isset($_POST['create_account_step2'])) {
 }
 
 /* Persisit System Settings On Brand */
-$ret = "SELECT * FROM `iB_SystemSettings` ";
+$ret = "SELECT * FROM `ib_systemsettings` ";
 $stmt = $mysqli->prepare($ret);
 $stmt->execute(); //ok
 $res = $stmt->get_result();

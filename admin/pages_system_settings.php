@@ -18,7 +18,7 @@ if (isset($_POST['systemSettings'])) {
     $sys_logo = $_FILES['sys_logo']['name'];
     move_uploaded_file($_FILES["sys_logo"]["tmp_name"], "dist/img/" . $_FILES["sys_logo"]["name"]);
 
-    $query = "UPDATE iB_SystemSettings SET sys_name =?, sys_logo =?, sys_tagline=? WHERE id = ?";
+    $query = "UPDATE ib_systemsettings SET sys_name =?, sys_logo =?, sys_tagline=? WHERE id = ?";
     $stmt = $mysqli->prepare($query);
     $rc = $stmt->bind_param('ssss',  $sys_name,  $sys_logo, $sys_tagline, $id);
     $stmt->execute();
@@ -76,7 +76,7 @@ if (isset($_POST['systemSettings'])) {
               <div class="card-body">
                 <?php
                 /* Persisit System Settings On Brand */
-                $ret = "SELECT * FROM `iB_SystemSettings` ";
+                $ret = "SELECT * FROM `ib_systemsettings` ";
                 $stmt = $mysqli->prepare($ret);
                 $stmt->execute(); //ok
                 $res = $stmt->get_result();

@@ -20,7 +20,7 @@ $stmt->fetch();
 $stmt->close();
 
 //return total number of iBank Staffs
-$result = "SELECT count(*) FROM iB_staff";
+$result = "SELECT count(*) FROM ib_staff";
 $stmt = $mysqli->prepare($result);
 $stmt->execute();
 $stmt->bind_result($iBStaffs);
