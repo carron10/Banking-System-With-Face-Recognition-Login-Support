@@ -1,6 +1,6 @@
 <?php
-    $dbuser="root";
-    $dbpass="";
+    $dbuser="tekoncoz_carron";
+    $dbpass="Muleya2024!";
     $host="localhost";
-    $db="internetbanking";
+    $db="tekoncoz_internetbanking";
     $mysqli=new mysqli($host,$dbuser, $dbpass, $db);

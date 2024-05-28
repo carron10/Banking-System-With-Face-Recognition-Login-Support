@@ -1,6 +1,6 @@
 **Log on to codeastro.com for more projects!***
 
-**Database Name: internetbanking**
+**Database Name: tekoncoz_internetbanking**
 
 **Developed by Martin Mbithi**
 

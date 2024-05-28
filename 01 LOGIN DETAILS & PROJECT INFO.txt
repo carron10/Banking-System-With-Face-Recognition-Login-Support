@@ -1,4 +1,4 @@
-*Database Name: internetbanking**
+*Database Name: tekoncoz_internetbanking**
 
 **Developed by Bright Jeketera**
 
