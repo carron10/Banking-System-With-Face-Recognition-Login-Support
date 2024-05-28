@@ -1,0 +1,25 @@
+*Database Name: internetbanking**
+
+**Developed by Bright Jeketera**
+
+**Recommended PHP Version 5, 7, 8**
+
+
+**Admin Login Details**
+
+Email	: admin@mail.com
+Password: 12345
+
+
+**Staff Login Details**
+
+Email	: staff@mail.com
+Password: 1234567
+ 
+
+**Client Login Details**
+
+Email	: brightcheteni@mail.com
+Password: Bright10
+
+
