@@ -7,7 +7,7 @@ $staff_id = $_SESSION['staff_id'];
 //fire staff
 if (isset($_GET['deleteBankAcc'])) {
   $id = intval($_GET['deleteBankAcc']);
-  $adn = "DELETE FROM  iB_bankAccounts  WHERE account_id = ?";
+  $adn = "DELETE FROM  ib_bankaccounts  WHERE account_id = ?";
   $stmt = $mysqli->prepare($adn);
   $stmt->bind_param('i', $id);
   $stmt->execute();
@@ -80,7 +80,7 @@ if (isset($_GET['deleteBankAcc'])) {
                   <tbody>
                     <?php
                     //fetch all iB_Accs
-                    $ret = "SELECT * FROM  iB_bankAccounts ORDER BY RAND() ";
+                    $ret = "SELECT * FROM  ib_bankaccounts ORDER BY RAND() ";
                     $stmt = $mysqli->prepare($ret);
                     $stmt->execute(); //ok
                     $res = $stmt->get_result();

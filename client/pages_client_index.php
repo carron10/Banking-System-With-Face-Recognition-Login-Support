@@ -4,7 +4,7 @@ include('conf/config.php'); //get configuration file
 if (isset($_POST['login'])) {
   $email = $_POST['email'];
   $password = sha1(md5($_POST['password'])); //double encrypt to increase security
-  $stmt = $mysqli->prepare("SELECT email, password, client_id  FROM iB_clients   WHERE email=? AND password=?"); //sql to log in user
+  $stmt = $mysqli->prepare("SELECT email, password, client_id  FROM ib_clients   WHERE email=? AND password=?"); //sql to log in user
   $stmt->bind_param('ss', $email, $password); //bind fetched parameters
   $stmt->execute(); //execute bind
   $stmt->bind_result($email, $password, $client_id); //bind result

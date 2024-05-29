@@ -12,7 +12,7 @@ $client_id = $_SESSION['client_id'];
     */
 
 //return total number of ibank clients
-$result = "SELECT count(*) FROM iB_clients";
+$result = "SELECT count(*) FROM ib_clients";
 $stmt = $mysqli->prepare($result);
 $stmt->execute();
 $stmt->bind_result($iBClients);
@@ -28,7 +28,7 @@ $stmt->fetch();
 $stmt->close();
 
 //return total number of iBank Account Types
-$result = "SELECT count(*) FROM iB_Acc_types";
+$result = "SELECT count(*) FROM ib_acc_types";
 $stmt = $mysqli->prepare($result);
 $stmt->execute();
 $stmt->bind_result($iB_AccsType);
@@ -36,7 +36,7 @@ $stmt->fetch();
 $stmt->close();
 
 //return total number of iBank Accounts
-$result = "SELECT count(*) FROM iB_bankAccounts";
+$result = "SELECT count(*) FROM ib_bankaccounts";
 $stmt = $mysqli->prepare($result);
 $stmt->execute();
 $stmt->bind_result($iB_Accs);
@@ -45,7 +45,7 @@ $stmt->close();
 
 //return total number of iBank Deposits
 $client_id = $_SESSION['client_id'];
-$result = "SELECT SUM(transaction_amt) FROM iB_Transactions WHERE  client_id = ? AND tr_type = 'Deposit' ";
+$result = "SELECT SUM(transaction_amt) FROM ib_transactions WHERE  client_id = ? AND tr_type = 'Deposit' ";
 $stmt = $mysqli->prepare($result);
 $stmt->bind_param('i', $client_id);
 $stmt->execute();
@@ -55,7 +55,7 @@ $stmt->close();
 
 //return total number of iBank Withdrawals
 $client_id = $_SESSION['client_id'];
-$result = "SELECT SUM(transaction_amt) FROM iB_Transactions WHERE  client_id = ? AND tr_type = 'Withdrawal' ";
+$result = "SELECT SUM(transaction_amt) FROM ib_transactions WHERE  client_id = ? AND tr_type = 'Withdrawal' ";
 $stmt = $mysqli->prepare($result);
 $stmt->bind_param('i', $client_id);
 $stmt->execute();
@@ -67,7 +67,7 @@ $stmt->close();
 
 //return total number of iBank Transfers
 $client_id = $_SESSION['client_id'];
-$result = "SELECT SUM(transaction_amt) FROM iB_Transactions WHERE  client_id = ? AND tr_type = 'Transfer' ";
+$result = "SELECT SUM(transaction_amt) FROM ib_transactions WHERE  client_id = ? AND tr_type = 'Transfer' ";
 $stmt = $mysqli->prepare($result);
 $stmt->bind_param('i', $client_id);
 $stmt->execute();
@@ -77,7 +77,7 @@ $stmt->close();
 
 //return total number of  iBank initial cash->balances
 $client_id = $_SESSION['client_id'];
-$result = "SELECT SUM(transaction_amt) FROM iB_Transactions  WHERE client_id =?";
+$result = "SELECT SUM(transaction_amt) FROM ib_transactions  WHERE client_id =?";
 $stmt = $mysqli->prepare($result);
 $stmt->bind_param('i', $client_id);
 $stmt->execute();
@@ -90,7 +90,7 @@ $TotalBalInAccount = ($iB_deposits)  - (($iB_withdrawal) + ($iB_Transfers));
 
 //ibank money in the wallet
 $client_id = $_SESSION['client_id'];
-$result = "SELECT SUM(transaction_amt) FROM iB_Transactions  WHERE client_id = ?";
+$result = "SELECT SUM(transaction_amt) FROM ib_transactions  WHERE client_id = ?";
 $stmt = $mysqli->prepare($result);
 $stmt->bind_param('i', $client_id);
 $stmt->execute();
@@ -312,7 +312,7 @@ $stmt->close();
                         <?php
                         //Get latest transactions ;
                         $client_id = $_SESSION['client_id'];
-                        $ret = "SELECT * FROM iB_Transactions WHERE  client_id = ?  ORDER BY iB_Transactions. created_at DESC ";
+                        $ret = "SELECT * FROM ib_transactions WHERE  client_id = ?  ORDER BY ib_transactions. created_at DESC ";
                         $stmt = $mysqli->prepare($ret);
                         $stmt->bind_param('i', $client_id);
                         $stmt->execute(); //ok
@@ -428,7 +428,7 @@ $stmt->close();
               y: <?php
                   //return total number of accounts opened under savings acc type
                   $client_id = $_SESSION['client_id'];
-                  $result = "SELECT count(*) FROM iB_bankAccounts WHERE  acc_type ='Savings' AND client_id =? ";
+                  $result = "SELECT count(*) FROM ib_bankaccounts WHERE  acc_type ='Savings' AND client_id =? ";
                   $stmt = $mysqli->prepare($result);
                   $stmt->bind_param('i', $client_id);
                   $stmt->execute();
@@ -445,7 +445,7 @@ $stmt->close();
               y: <?php
                   //return total number of accounts opened under  Retirement  acc type
                   $client_id  = $_SESSION['client_id'];
-                  $result = "SELECT count(*) FROM iB_bankAccounts WHERE  acc_type =' Retirement' AND client_id =? ";
+                  $result = "SELECT count(*) FROM ib_bankaccounts WHERE  acc_type =' Retirement' AND client_id =? ";
                   $stmt = $mysqli->prepare($result);
                   $stmt->bind_param('i', $client_id);
                   $stmt->execute();
@@ -462,7 +462,7 @@ $stmt->close();
               y: <?php
                   //return total number of accounts opened under  Recurring deposit  acc type
                   $client_id  = $_SESSION['client_id'];
-                  $result = "SELECT count(*) FROM iB_bankAccounts WHERE  acc_type ='Recurring deposit' AND client_id =? ";
+                  $result = "SELECT count(*) FROM ib_bankaccounts WHERE  acc_type ='Recurring deposit' AND client_id =? ";
                   $stmt = $mysqli->prepare($result);
                   $stmt->bind_param('i', $client_id);
                   $stmt->execute();
@@ -479,7 +479,7 @@ $stmt->close();
               y: <?php
                   //return total number of accounts opened under  Fixed Deposit Account deposit  acc type
                   $client_id  = $_SESSION['client_id'];
-                  $result = "SELECT count(*) FROM iB_bankAccounts WHERE  acc_type ='Fixed Deposit Account' AND client_id = ? ";
+                  $result = "SELECT count(*) FROM ib_bankaccounts WHERE  acc_type ='Fixed Deposit Account' AND client_id = ? ";
                   $stmt = $mysqli->prepare($result);
                   $stmt->bind_param('i', $client_id);
                   $stmt->execute();
@@ -497,7 +497,7 @@ $stmt->close();
 
                   //return total number of accounts opened under  Current account deposit  acc type
                   $client_id  = $_SESSION['client_id'];
-                  $result = "SELECT count(*) FROM iB_bankAccounts WHERE  acc_type ='Current account' AND client_id =? ";
+                  $result = "SELECT count(*) FROM ib_bankaccounts WHERE  acc_type ='Current account' AND client_id =? ";
                   $stmt = $mysqli->prepare($result);
                   $stmt->bind_param('i', $client_id);
                   $stmt->execute();
@@ -532,7 +532,7 @@ $stmt->close();
               y: <?php
                   //return total number of transactions under  Withdrawals
                   $client_id  = $_SESSION['client_id'];
-                  $result = "SELECT count(*) FROM iB_Transactions WHERE  tr_type ='Withdrawal' AND client_id =? ";
+                  $result = "SELECT count(*) FROM ib_transactions WHERE  tr_type ='Withdrawal' AND client_id =? ";
                   $stmt = $mysqli->prepare($result);
                   $stmt->bind_param('i', $client_id);
                   $stmt->execute();
@@ -549,7 +549,7 @@ $stmt->close();
               y: <?php
                   //return total number of transactions under  Deposits
                   $client_id  = $_SESSION['client_id'];
-                  $result = "SELECT count(*) FROM iB_Transactions WHERE  tr_type ='Deposit' AND client_id =? ";
+                  $result = "SELECT count(*) FROM ib_transactions WHERE  tr_type ='Deposit' AND client_id =? ";
                   $stmt = $mysqli->prepare($result);
                   $stmt->bind_param('i', $client_id);
                   $stmt->execute();
@@ -566,7 +566,7 @@ $stmt->close();
               y: <?php
                   //return total number of transactions under  Deposits
                   $client_id  = $_SESSION['client_id'];
-                  $result = "SELECT count(*) FROM iB_Transactions WHERE  tr_type ='Transfer' AND client_id =? ";
+                  $result = "SELECT count(*) FROM ib_transactions WHERE  tr_type ='Transfer' AND client_id =? ";
                   $stmt = $mysqli->prepare($result);
                   $stmt->bind_param('i', $client_id);
                   $stmt->execute();

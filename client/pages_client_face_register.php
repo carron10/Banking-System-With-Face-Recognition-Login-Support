@@ -16,7 +16,7 @@ if (!isset($_POST['create_account'])) {
     $address  = $_POST['address'];
 
     #Check if email already in DB
-    $stmt = $mysqli->prepare("SELECT email, client_id FROM iB_clients WHERE email=?");
+    $stmt = $mysqli->prepare("SELECT email, client_id FROM ib_clients WHERE email=?");
     $stmt->bind_param('s', $email);
     $stmt->execute();
     $rs = $stmt->get_result(); // Use get_result() instead of fetch()
@@ -47,7 +47,7 @@ if (isset($_POST['create_account_step2'])) {
     //move_uploaded_file($_FILES["profile_pic"]["tmp_name"],"dist/img/".$_FILES["profile_pic"]["name"]);
 
     //Insert Captured information to a database table
-    $query = "INSERT INTO iB_clients (name, national_id, client_number, phone, email, password, address) VALUES (?,?,?,?,?,?,?)";
+    $query = "INSERT INTO ib_clients (name, national_id, client_number, phone, email, password, address) VALUES (?,?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($query);
     //bind paramaters
     $rc = $stmt->bind_param('sssssss', $name, $national_id, $client_number, $phone, $email, $password, $address);

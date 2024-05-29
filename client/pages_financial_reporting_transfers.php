@@ -68,7 +68,7 @@ $client_id = $_SESSION['client_id'];
                     <?php
                     //Get latest deposits transactions 
                     $client_id = $_SESSION['client_id'];
-                    $ret = "SELECT * FROM  iB_Transactions  WHERE tr_type = 'Transfer'AND client_id =? ";
+                    $ret = "SELECT * FROM  ib_transactions  WHERE tr_type = 'Transfer'AND client_id =? ";
                     $stmt = $mysqli->prepare($ret);
                     $stmt->bind_param('i', $client_id);
                     $stmt->execute(); //ok

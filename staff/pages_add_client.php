@@ -19,7 +19,7 @@ if (isset($_POST['create_staff_account'])) {
     move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "dist/img/" . $_FILES["profile_pic"]["name"]);
 
     //Insert Captured information to a database table
-    $query = "INSERT INTO iB_clients (name, national_id, client_number, phone, email, password, address, profile_pic) VALUES (?,?,?,?,?,?,?,?)";
+    $query = "INSERT INTO ib_clients (name, national_id, client_number, phone, email, password, address, profile_pic) VALUES (?,?,?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($query);
     //bind paramaters
     $rc = $stmt->bind_param('ssssssss', $name, $national_id, $client_number, $phone, $email, $password, $address, $profile_pic);

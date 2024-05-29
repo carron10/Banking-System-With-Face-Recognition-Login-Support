@@ -5,7 +5,7 @@
     -->
   <?php
   $admin_id = $_SESSION['admin_id'];
-  $ret = "SELECT * FROM  iB_admin  WHERE admin_id = ? ";
+  $ret = "SELECT * FROM  ib_admin  WHERE admin_id = ? ";
   $stmt = $mysqli->prepare($ret);
   $stmt->bind_param('i', $admin_id);
   $stmt->execute(); //ok

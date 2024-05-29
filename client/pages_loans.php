@@ -66,7 +66,7 @@ $client_id = $_SESSION['client_id'];
                   <tbody>
                     <?php
                     //fetch all iBank clients
-                    $ret = "SELECT * FROM  iB_clients ORDER BY RAND() ";
+                    $ret = "SELECT * FROM  ib_clients ORDER BY RAND() ";
                     $stmt = $mysqli->prepare($ret);
                     $stmt->execute(); //ok
                     $res = $stmt->get_result();

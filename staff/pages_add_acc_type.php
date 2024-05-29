@@ -12,7 +12,7 @@ if (isset($_POST['create_acc_type'])) {
     $code = $_POST['code'];
 
     //Insert Captured information to a database table
-    $query = "INSERT INTO iB_Acc_types (name, description, rate, code) VALUES (?,?,?,?)";
+    $query = "INSERT INTO ib_acc_types (name, description, rate, code) VALUES (?,?,?,?)";
     $stmt = $mysqli->prepare($query);
     //bind paramaters
     $rc = $stmt->bind_param('ssss', $name, $description, $rate, $code);

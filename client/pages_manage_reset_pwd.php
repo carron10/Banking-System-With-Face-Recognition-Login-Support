@@ -7,7 +7,7 @@ $client_id = $_SESSION['client_id'];
 //fire staff
 if (isset($_GET['ClearReset'])) {
   $id = intval($_GET['ClearReset']);
-  $adn = "DELETE FROM  iB_password_resets  WHERE id = ?";
+  $adn = "DELETE FROM  ib_password_resets  WHERE id = ?";
   $stmt = $mysqli->prepare($adn);
   $stmt->bind_param('i', $id);
   $stmt->execute();
@@ -78,7 +78,7 @@ if (isset($_GET['ClearReset'])) {
                   <tbody>
                     <?php
                     //fetch all iBank password reset requests
-                    $ret = "SELECT * FROM  iB_password_resets  ";
+                    $ret = "SELECT * FROM  ib_password_resets  ";
                     $stmt = $mysqli->prepare($ret);
                     $stmt->execute(); //ok
                     $res = $stmt->get_result();

@@ -34,7 +34,7 @@ if (isset($_POST['deposit'])) {
             *You cant transfer money from an bank account that has no money in it so
             *Lets Handle that here.
             */
-    $result = "SELECT SUM(transaction_amt) FROM  iB_Transactions  WHERE account_id=?";
+    $result = "SELECT SUM(transaction_amt) FROM  ib_transactions  WHERE account_id=?";
     $stmt = $mysqli->prepare($result);
     $stmt->bind_param('i', $account_id);
     $stmt->execute();
@@ -51,7 +51,7 @@ if (isset($_POST['deposit'])) {
 
 
         //Insert Captured information to a database table
-        $query = "INSERT INTO iB_Transactions (tr_code, account_id, acc_name, account_number, acc_type,  tr_type, tr_status, client_id, client_name, client_national_id, transaction_amt, client_phone, receiving_acc_no, receiving_acc_name, receiving_acc_holder) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        $query = "INSERT INTO ib_transactions (tr_code, account_id, acc_name, account_number, acc_type,  tr_type, tr_status, client_id, client_name, client_national_id, transaction_amt, client_phone, receiving_acc_no, receiving_acc_name, receiving_acc_holder) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         $notification = "INSERT INTO  ib_notifications (notification_details) VALUES (?)";
 
         $stmt = $mysqli->prepare($query);
@@ -94,7 +94,7 @@ if (isset($_POST['deposit'])) {
         <!-- Content Wrapper. Contains page content -->
         <?php
         $account_id = $_GET['account_id'];
-        $ret = "SELECT * FROM  iB_bankAccounts WHERE account_id = ? ";
+        $ret = "SELECT * FROM  ib_bankaccounts WHERE account_id = ? ";
         $stmt = $mysqli->prepare($ret);
         $stmt->bind_param('i', $account_id);
         $stmt->execute(); //ok
@@ -192,7 +192,7 @@ if (isset($_POST['deposit'])) {
                                                         <option>Select Receiving Account</option>
                                                         <?php
                                                         //fetch all iB_Accs
-                                                        $ret = "SELECT * FROM  iB_bankAccounts ";
+                                                        $ret = "SELECT * FROM  ib_bankaccounts ";
                                                         $stmt = $mysqli->prepare($ret);
                                                         $stmt->execute(); //ok
                                                         $res = $stmt->get_result();

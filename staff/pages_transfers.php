@@ -65,7 +65,7 @@ $client_id = $_SESSION['client_id'];
                   <tbody>
                     <?php
                     //fetch all iB_Accs
-                    $ret = "SELECT * FROM  iB_bankAccounts ";
+                    $ret = "SELECT * FROM  ib_bankaccounts ";
                     $stmt = $mysqli->prepare($ret);
                     $stmt->execute(); //ok
                     $res = $stmt->get_result();

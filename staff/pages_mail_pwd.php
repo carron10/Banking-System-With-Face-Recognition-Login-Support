@@ -13,8 +13,8 @@ if (isset($_POST['reset_password'])) {
 
     //Insert Captured information to a database table
     //update password
-    $query = "UPDATE  iB_clients SET password=? WHERE email=? ";
-    $update_password = "UPDATE iB_password_resets SET reset_status=? WHERE id =? ";
+    $query = "UPDATE  ib_clients SET password=? WHERE email=? ";
+    $update_password = "UPDATE ib_password_resets SET reset_status=? WHERE id =? ";
     $stmt = $mysqli->prepare($query);
     $pwdreset = $mysqli->prepare($update_password);
     //bind paramaters
@@ -51,7 +51,7 @@ if (isset($_POST['reset_password'])) {
             <!-- Content Header (Page header) -->
             <?php
             $email = $_GET['email'];
-            $ret = "SELECT * FROM  iB_clients WHERE email = ?  ";
+            $ret = "SELECT * FROM  ib_clients WHERE email = ?  ";
             $stmt = $mysqli->prepare($ret);
             $stmt->bind_param('s', $email);
             $stmt->execute(); //ok

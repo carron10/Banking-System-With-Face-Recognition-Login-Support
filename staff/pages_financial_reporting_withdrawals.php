@@ -65,7 +65,7 @@ $staff_id = $_SESSION['staff_id'];
                   <tbody>
                     <?php
                     //Get latest deposits transactions 
-                    $ret = "SELECT * FROM  iB_Transactions  WHERE tr_type = 'Withdrawal' ";
+                    $ret = "SELECT * FROM  ib_transactions  WHERE tr_type = 'Withdrawal' ";
                     $stmt = $mysqli->prepare($ret);
                     $stmt->execute(); //ok
                     $res = $stmt->get_result();

@@ -10,7 +10,7 @@ if (isset($_POST['update_account'])) {
     $admin_id = $_SESSION['admin_id'];
     $email = $_POST['email'];
     //insert unto certain table in database
-    $query = "UPDATE iB_admin  SET name=?, email=? WHERE  admin_id=?";
+    $query = "UPDATE ib_admin  SET name=?, email=? WHERE  admin_id=?";
     $stmt = $mysqli->prepare($query);
     //bind paramaters
     $rc = $stmt->bind_param('ssi', $name, $email, $admin_id);
@@ -27,7 +27,7 @@ if (isset($_POST['change_password'])) {
     $password = sha1(md5($_POST['password']));
     $admin_id = $_SESSION['admin_id'];
     //insert unto certain table in database
-    $query = "UPDATE iB_admin  SET password=? WHERE  admin_id=?";
+    $query = "UPDATE ib_admin  SET password=? WHERE  admin_id=?";
     $stmt = $mysqli->prepare($query);
     //bind paramaters
     $rc = $stmt->bind_param('si', $password, $admin_id);
@@ -62,7 +62,7 @@ if (isset($_POST['change_password'])) {
             <!-- Content Header with logged in user details (Page header) -->
             <?php
             $admin_id = $_SESSION['admin_id'];
-            $ret = "SELECT * FROM  iB_admin  WHERE admin_id = ? ";
+            $ret = "SELECT * FROM  ib_admin  WHERE admin_id = ? ";
             $stmt = $mysqli->prepare($ret);
             $stmt->bind_param('i', $admin_id);
             $stmt->execute(); //ok

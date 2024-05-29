@@ -13,7 +13,7 @@ if (isset($_POST['update_acc_type'])) {
 
 
     //Insert Captured information to a database table
-    $query = "UPDATE  iB_Acc_types SET name=?, description=?, rate=? WHERE code=? ";
+    $query = "UPDATE  ib_acc_types SET name=?, description=?, rate=? WHERE code=? ";
     $stmt = $mysqli->prepare($query);
     //bind paramaters
     $rc = $stmt->bind_param('ssss', $name, $description, $rate, $code);
@@ -45,9 +45,9 @@ if (isset($_POST['update_acc_type'])) {
 
         <!-- Content Wrapper Contains page content -->
         <?php
-        //fetch a iB_Acc_types
+        //fetch a ib_acc_types
         $code = $_GET['code'];
-        $ret = "SELECT * FROM  iB_Acc_types WHERE code = ? ";
+        $ret = "SELECT * FROM  ib_acc_types WHERE code = ? ";
         $stmt = $mysqli->prepare($ret);
         $stmt->bind_param('s', $code);
         $stmt->execute(); //ok

@@ -34,7 +34,7 @@ $client_id = $_SESSION['client_id'];
 
         //get the total amount deposited
         $account_id = $_GET['account_id'];
-        $result = "SELECT SUM(transaction_amt) FROM iB_Transactions WHERE  account_id = ? AND  tr_type = 'Deposit' ";
+        $result = "SELECT SUM(transaction_amt) FROM ib_transactions WHERE  account_id = ? AND  tr_type = 'Deposit' ";
         $stmt = $mysqli->prepare($result);
         $stmt->bind_param('i', $account_id);
         $stmt->execute();
@@ -44,7 +44,7 @@ $client_id = $_SESSION['client_id'];
 
         //get total amount withdrawn
         $account_id = $_GET['account_id'];
-        $result = "SELECT SUM(transaction_amt) FROM iB_Transactions WHERE  account_id = ? AND  tr_type = 'Withdrawal' ";
+        $result = "SELECT SUM(transaction_amt) FROM ib_transactions WHERE  account_id = ? AND  tr_type = 'Withdrawal' ";
         $stmt = $mysqli->prepare($result);
         $stmt->bind_param('i', $account_id);
         $stmt->execute();
@@ -54,7 +54,7 @@ $client_id = $_SESSION['client_id'];
 
         //get total amount transfered
         $account_id = $_GET['account_id'];
-        $result = "SELECT SUM(transaction_amt) FROM iB_Transactions WHERE  account_id = ? AND  tr_type = 'Transfer' ";
+        $result = "SELECT SUM(transaction_amt) FROM ib_transactions WHERE  account_id = ? AND  tr_type = 'Transfer' ";
         $stmt = $mysqli->prepare($result);
         $stmt->bind_param('i', $account_id);
         $stmt->execute();
@@ -65,7 +65,7 @@ $client_id = $_SESSION['client_id'];
 
 
         $account_id = $_GET['account_id'];
-        $ret = "SELECT * FROM  iB_bankAccounts WHERE account_id =? ";
+        $ret = "SELECT * FROM  ib_bankaccounts WHERE account_id =? ";
         $stmt = $mysqli->prepare($ret);
         $stmt->bind_param('i', $account_id);
         $stmt->execute(); //ok

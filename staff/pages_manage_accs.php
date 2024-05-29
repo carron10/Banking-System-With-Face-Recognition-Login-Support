@@ -6,7 +6,7 @@ check_login();
 $staff_id = $_SESSION['staff_id'];
 if (isset($_GET['deleteBankAccType'])) {
   $id = intval($_GET['deleteBankAccType']);
-  $adn = "DELETE FROM  iB_Acc_types  WHERE acctype_id = ?";
+  $adn = "DELETE FROM  ib_acc_types  WHERE acctype_id = ?";
   $stmt = $mysqli->prepare($adn);
   $stmt->bind_param('i', $id);
   $stmt->execute();
@@ -75,8 +75,8 @@ if (isset($_GET['deleteBankAccType'])) {
                   </thead>
                   <tbody>
                     <?php
-                    //fetch all iB_Acc_types
-                    $ret = "SELECT * FROM  iB_Acc_types ORDER BY RAND() ";
+                    //fetch all ib_acc_types
+                    $ret = "SELECT * FROM  ib_acc_types ORDER BY RAND() ";
                     $stmt = $mysqli->prepare($ret);
                     $stmt->execute(); //ok
                     $res = $stmt->get_result();

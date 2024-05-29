@@ -7,7 +7,7 @@ $client_id = $_SESSION['client_id'];
 //roll back transaction
 if (isset($_GET['RollBack_Transaction'])) {
   $id = intval($_GET['RollBack_Transaction']);
-  $adn = "DELETE FROM  iB_Transactions  WHERE tr_id = ?";
+  $adn = "DELETE FROM  ib_transactions  WHERE tr_id = ?";
   $stmt = $mysqli->prepare($adn);
   $stmt->bind_param('i', $id);
   $stmt->execute();
@@ -81,7 +81,7 @@ if (isset($_GET['RollBack_Transaction'])) {
                     <?php
                     //Get latest transactions 
                     $client_id = $_SESSION['client_id'];
-                    $ret = "SELECT * FROM `iB_Transactions` WHERE client_id =? ORDER BY `iB_Transactions`.`created_at` DESC ";
+                    $ret = "SELECT * FROM `ib_transactions` WHERE client_id =? ORDER BY `ib_transactions`.`created_at` DESC ";
                     $stmt = $mysqli->prepare($ret);
                     $stmt->bind_param('i', $client_id);
                     $stmt->execute(); //ok

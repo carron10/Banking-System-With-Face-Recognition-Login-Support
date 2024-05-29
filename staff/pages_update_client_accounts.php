@@ -22,7 +22,7 @@ if (isset($_POST['update_account'])) {
     $client_adr  = $_POST['client_adr'];
 
     //Insert Captured information to a database table
-    $query = "UPDATE  iB_bankAccounts  SET acc_name=?, account_number=?, acc_type=?, acc_rates=?, acc_status=?, acc_amount=?, client_name=?, client_national_id=?, client_phone=?, client_number=?, client_email=?, client_adr=? WHERE account_id =?";
+    $query = "UPDATE  ib_bankaccounts  SET acc_name=?, account_number=?, acc_type=?, acc_rates=?, acc_status=?, acc_amount=?, client_name=?, client_national_id=?, client_phone=?, client_number=?, client_email=?, client_adr=? WHERE account_id =?";
     $stmt = $mysqli->prepare($query);
     //bind paramaters
     $rc = $stmt->bind_param('ssssssssssssi', $acc_name, $account_number, $acc_type, $acc_rates, $acc_status, $acc_amount,  $client_name, $client_national_id, $client_phone, $client_number, $client_email, $client_adr, $account_id);
@@ -54,7 +54,7 @@ if (isset($_POST['update_account'])) {
         <!-- Content Wrapper. Contains page content -->
         <?php
         $account_id = $_GET['account_id'];
-        $ret = "SELECT * FROM  iB_bankAccounts WHERE account_id = ? ";
+        $ret = "SELECT * FROM  ib_bankaccounts WHERE account_id = ? ";
         $stmt = $mysqli->prepare($ret);
         $stmt->bind_param('i', $account_id);
         $stmt->execute(); //ok
@@ -151,8 +151,8 @@ if (isset($_POST['update_account'])) {
                                                     <select class="form-control" onChange="getiBankAccs(this.value);" name="acc_type">
                                                         <option>Select Any Account types</option>
                                                         <?php
-                                                        //fetch all iB_Acc_types
-                                                        $ret = "SELECT * FROM  iB_Acc_types ORDER BY RAND() ";
+                                                        //fetch all ib_acc_types
+                                                        $ret = "SELECT * FROM  ib_acc_types ORDER BY RAND() ";
                                                         $stmt = $mysqli->prepare($ret);
                                                         $stmt->execute(); //ok
                                                         $res = $stmt->get_result();

@@ -19,7 +19,7 @@ if (isset($_POST['confirm_reset_password'])) {
 
     if (!$error) {
         $email = $_SESSION['email'];
-        $sql = "SELECT * FROM  iB_admin  WHERE email = '$email'";
+        $sql = "SELECT * FROM  ib_admin  WHERE email = '$email'";
         $res = mysqli_query($mysqli, $sql);
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
@@ -27,7 +27,7 @@ if (isset($_POST['confirm_reset_password'])) {
                 $err = "Password Does Not Match";
             } else {
                 $email = $_SESSION['email'];
-                $query = "UPDATE iB_admin SET  password =? WHERE email =?";
+                $query = "UPDATE ib_admin SET  password =? WHERE email =?";
                 $stmt = $mysqli->prepare($query);
                 $rc = $stmt->bind_param('ss', $new_password, $email);
                 $stmt->execute();
@@ -62,7 +62,7 @@ while ($auth = $res->fetch_object()) {
                 <div class="card-body login-card-body">
                     <?php
                     $email  = $_SESSION['email'];
-                    $ret = "SELECT * FROM  iB_admin  WHERE email = '$email'";
+                    $ret = "SELECT * FROM  ib_admin  WHERE email = '$email'";
                     $stmt = $mysqli->prepare($ret);
                     $stmt->execute(); //ok
                     $res = $stmt->get_result();

@@ -17,7 +17,7 @@ if (isset($_POST['create_account'])) {
   //move_uploaded_file($_FILES["profile_pic"]["tmp_name"],"dist/img/".$_FILES["profile_pic"]["name"]);
 
   //Insert Captured information to a database table
-  $query = "INSERT INTO iB_clients (name, national_id, client_number, phone, email, password, address) VALUES (?,?,?,?,?,?,?)";
+  $query = "INSERT INTO ib_clients (name, national_id, client_number, phone, email, password, address) VALUES (?,?,?,?,?,?,?)";
   $stmt = $mysqli->prepare($query);
   //bind paramaters
   $rc = $stmt->bind_param('sssssss', $name, $national_id, $client_number, $phone, $email, $password, $address);
@@ -39,7 +39,7 @@ if (isset($_POST['create_account'])) {
 }
 
 /* Persisit System Settings On Brand */
-$ret = "SELECT * FROM `iB_SystemSettings` ";
+$ret = "SELECT * FROM `ib_systemsettings` ";
 $stmt = $mysqli->prepare($ret);
 $stmt->execute(); //ok
 $res = $stmt->get_result();

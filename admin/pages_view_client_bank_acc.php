@@ -24,7 +24,7 @@ $admin_id = $_SESSION['admin_id'];
         <!-- Content Wrapper. Contains page content -->
         <?php
         $client_id = $_GET['client_id'];
-        $ret = "SELECT * FROM  iB_clients WHERE client_id =? ";
+        $ret = "SELECT * FROM  ib_clients WHERE client_id =? ";
         $stmt = $mysqli->prepare($ret);
         $stmt->bind_param('i', $client_id);
         $stmt->execute(); //ok
@@ -79,7 +79,7 @@ $admin_id = $_SESSION['admin_id'];
                                             <?php
                                             //fetch all iB_Accs Which belongs to selected client
                                             $client_id = $_GET['client_id'];
-                                            $ret = "SELECT * FROM  iB_bankAccounts WHERE client_id = ?";
+                                            $ret = "SELECT * FROM  ib_bankaccounts WHERE client_id = ?";
                                             $stmt = $mysqli->prepare($ret);
                                             $stmt->bind_param('i', $client_id);
                                             $stmt->execute(); //ok

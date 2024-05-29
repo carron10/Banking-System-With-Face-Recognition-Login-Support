@@ -67,7 +67,7 @@ $client_id = $_SESSION['client_id'];
                     <?php
                     //fetch all iBank clients
                     $client_id = $_SESSION['client_id'];
-                    $ret = "SELECT * FROM  iB_clients  WHERE client_id =?";
+                    $ret = "SELECT * FROM  ib_clients  WHERE client_id =?";
                     $stmt = $mysqli->prepare($ret);
                     $stmt->bind_param('i', $client_id);
                     $stmt->execute(); //ok

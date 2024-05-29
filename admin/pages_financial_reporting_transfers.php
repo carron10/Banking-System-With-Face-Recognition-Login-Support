@@ -67,7 +67,7 @@ $admin_id = $_SESSION['admin_id'];
                   <tbody>
                     <?php
                     //Get latest deposits transactions 
-                    $ret = "SELECT * FROM  iB_Transactions  WHERE tr_type = 'Transfer' ";
+                    $ret = "SELECT * FROM  ib_transactions  WHERE tr_type = 'Transfer' ";
                     $stmt = $mysqli->prepare($ret);
                     $stmt->execute(); //ok
                     $res = $stmt->get_result();
