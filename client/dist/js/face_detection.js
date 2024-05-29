@@ -1,5 +1,14 @@
 class FaceDetector {
     constructor(element = "facial_container") {
+        $("#" + element).html(`
+        <div id="facial_container2024">
+        <video id="video" style="display: none;" autoplay></video>
+        <canvas id="videocanvas"></canvas>
+        <canvas id="canvas"></canvas>
+        <canvas id="canvas34" width="250" height="250"></canvas>
+        </div>
+    `);
+
         this.element = element
 
         navigator.mediaDevices.getUserMedia({

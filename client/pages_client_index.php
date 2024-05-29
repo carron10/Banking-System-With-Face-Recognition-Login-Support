@@ -44,10 +44,7 @@ while ($auth = $res->fetch_object()) {
           <p class="login-box-msg">Log In To Start Login</p>
           <form method="post">
             <div id="facial_container">
-              <video id="video" style="display: none;" autoplay></video>
-              <canvas id="videocanvas"></canvas>
-              <canvas id="canvas"></canvas>
-              <canvas id="canvas34" width="250" height="250"></canvas>
+              
             </div>
             <div class="input-group mb-3">
               <input type="email" name="email" class="form-control" placeholder="Email">
@@ -107,30 +104,33 @@ while ($auth = $res->fetch_object()) {
     <!-- AdminLTE App -->
     <script src="dist/js/adminlte.min.js"></script>
     <script src="dist/js/socket.io.min.js"></script>
-    <script src="dist/js/face_detection.js"></script>
-    <script>
-      $(function() {
-        var detector = new FaceDetector()
-       
-        $("#facial_sec_form").submit((e) => {
-          // e.preventDefault()
-          console.log(getFormData("facial_sec_form"));
-          var form = document.getElementById("facial_sec_form")
-          if (form.checkValidity() == true) {
-            if ($("[name='token']").val() == null) {
+   
+    <?php if (isset($face_auth)) { ?>
+      <script src="dist/js/face_detection.js"></script>
+      <script>
+        $(function() {
+          var detector = new FaceDetector()
+
+          $("#facial_sec_form").submit((e) => {
+            // e.preventDefault()
+            console.log(getFormData("facial_sec_form"));
+            var form = document.getElementById("facial_sec_form")
+            if (form.checkValidity() == true) {
+              if ($("[name='token']").val() == null) {
+                e.preventDefault()
+                swal("Failed", "Please Complete Face Configuration", "error");
+                $("#facial_sec_form").addClass("was-validated")
+              }
+
+            } else {
               e.preventDefault()
-              swal("Failed", "Please Complete Face Configuration", "error");
               $("#facial_sec_form").addClass("was-validated")
             }
+          })
 
-          } else {
-            e.preventDefault()
-            $("#facial_sec_form").addClass("was-validated")
-          }
         })
-
-      })
-    </script>
+      </script>
+    <?php } ?>
   </body>
 
   </html>

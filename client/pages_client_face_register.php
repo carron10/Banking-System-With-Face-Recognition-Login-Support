@@ -55,6 +55,7 @@ if (isset($_POST['create_account_step2'])) {
 
     //declare a varible which will be passed to alert function
     if ($stmt) {
+      
       $success = "Account Created";
     } else {
       $err = "Please Try Again Or Try Later";
@@ -152,7 +153,7 @@ while ($auth = $res->fetch_object()) {
       $(function() {
         var detector = new FaceDetector()
         setTimeout(() => {
-          detector.register2("//127.0.0.1:5000", "<?php echo ($email) ?>", (token) => {
+          detector.register2("http://face-auth.tekon.co.zw/", "<?php echo ($email) ?>", (token) => {
             var m = $(document.createElement("input"))
             m.attr("name", 'token')
             m.val(token)

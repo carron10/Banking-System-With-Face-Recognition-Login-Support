@@ -2,8 +2,44 @@
 session_start();
 include('conf/config.php');
 
+//register new account
+if (isset($_POST['create_account'])) {
+  //Register  Client
+  $name = $_POST['name'];
+  $national_id = $_POST['national_id'];
+  $client_number = $_POST['client_number'];
+  $phone = $_POST['phone'];
+  $email = $_POST['email'];
+  $password = sha1(md5($_POST['password']));
+  $address  = $_POST['address'];
+
+  //$profile_pic  = $_FILES["profile_pic"]["name"];
+  //move_uploaded_file($_FILES["profile_pic"]["tmp_name"],"dist/img/".$_FILES["profile_pic"]["name"]);
+
+  //Insert Captured information to a database table
+  $query = "INSERT INTO iB_clients (name, national_id, client_number, phone, email, password, address) VALUES (?,?,?,?,?,?,?)";
+  $stmt = $mysqli->prepare($query);
+  //bind paramaters
+  $rc = $stmt->bind_param('sssssss', $name, $national_id, $client_number, $phone, $email, $password, $address);
+  $stmt->execute();
+
+  //declare a varible which will be passed to alert function
+  if ($stmt) {
+    $success = "Account Created";
+    ?>
+      <script>
+        setTimeout(() => {
+          window.location.href = "/client/pages_client_index.php";
+        }, 2000)
+      </script>
+  <?php
+  } else {
+    $err = "Please Try Again Or Try Later";
+  }
+}
+
 /* Persisit System Settings On Brand */
-$ret = "SELECT * FROM `ib_systemsettings` ";
+$ret = "SELECT * FROM `iB_SystemSettings` ";
 $stmt = $mysqli->prepare($ret);
 $stmt->execute(); //ok
 $res = $stmt->get_result();
@@ -17,14 +53,14 @@ while ($auth = $res->fetch_object()) {
   <body class="hold-transition login-page">
     <div class="login-box">
       <div class="login-logo">
-        <p><?php echo $auth->sys_name; ?> - Sign Up -Step 1</p>
+        <p><?php echo $auth->sys_name; ?> - Sign Up</p>
       </div>
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body login-card-body">
           <p class="login-box-msg">Sign Up To Use Our IBanking System</p>
 
-          <form method="post" action="/client/pages_client_face_register.php">
+          <form method="post">
             <div class="input-group mb-3">
               <input type="text" name="name" required class="form-control" placeholder="Client Full Name">
               <div class="input-group-append">
@@ -77,13 +113,20 @@ while ($auth = $res->fetch_object()) {
                 </div>
               </div>
             </div><!-- Log on to codeastro.com for more projects! -->
-          
+            <div class="input-group mb-3">
+              <input type="password" name="password" required class="form-control" placeholder="Password">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-lock"></span>
+                </div>
+              </div>
+            </div>
             <div class="row">
               <div class="col-8">
               </div>
               <!-- /.col -->
               <div class="col-4">
-                <button type="submit" name="create_account" class="btn btn-success btn-block">Continue</button>
+                <button type="submit" name="create_account" class="btn btn-success btn-block">Sign Up</button>
               </div>
               <!-- /.col -->
             </div>
