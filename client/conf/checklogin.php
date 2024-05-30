@@ -1,10 +1,6 @@
 <?php
 function check_login()
 {
-echo "ID";
-echo $_SESSION['client_id'];
-
-
 if(strlen($_SESSION['client_id'])==0)
 	{
 		$host = $_SERVER['HTTP_HOST'];
