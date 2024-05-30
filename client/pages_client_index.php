@@ -18,7 +18,6 @@ while ($auth = $res->fetch_object()) {
   <?php include("dist/_partials/head.php"); ?>
 
   <body class="hold-transition login-page">
-    <link rel="stylesheet" href="dist/css/face_detectation.css">
     <div class="login-box">
       <div class="login-logo">
         <p><?php echo $auth->sys_name; ?></p>
@@ -28,9 +27,6 @@ while ($auth = $res->fetch_object()) {
         <div class="card-body login-card-body">
           <p class="login-box-msg">Log In To Start Login</p>
           <form method="post" action="facial_login.php">
-            <div id="facial_container">
-
-            </div>
             <div class="input-group mb-3">
               <input type="email" name="email" class="form-control" placeholder="Email">
               <div class="input-group-append">

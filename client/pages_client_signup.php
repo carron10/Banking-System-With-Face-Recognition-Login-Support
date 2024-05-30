@@ -29,7 +29,7 @@ if (isset($_POST['create_account'])) {
     ?>
       <script>
         setTimeout(() => {
-          window.location.href = "/client/pages_client_signup.php";
+          window.location.href = "/client/pages_dashboard.php";
         },2500)
       </script>
   <?php

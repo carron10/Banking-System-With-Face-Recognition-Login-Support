@@ -27,16 +27,19 @@ if (isset($_POST['login'])) {
         $err = "Access Denied Please Check Your Credentials,you will be redirected back to login page";
 
 ?>
-        <script>
+        <!-- <script>
             setTimeout(() => {
-                window.location.href = "/client/pages_client_index.php";
+                // window.location.href = "/client/pages_client_index.php";
             }, 2000)
-        </script>
+        </script> -->
     <?php
     }
 } else {
-    header("Location:pages_client_index.php");
+    // header("Location:pages_client_index.php");
 }
+
+
+
 /* Persisit System Settings On Brand */
 $ret = "SELECT * FROM `ib_systemsettings` ";
 $stmt = $mysqli->prepare($ret);
