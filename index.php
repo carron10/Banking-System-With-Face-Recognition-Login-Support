@@ -32,14 +32,14 @@ while ($sys = $res->fetch_object()) {
 
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active">
+                        <!-- <li class="nav-item active">
                             <a class="nav-link" target="_blank" href="admin/pages_index.php">Admin Portal</a>
                         </li>
                         <li class="nav-item active">
                             <a class="nav-link" target="_blank" href="staff/pages_staff_index.php">Staff Portal</a>
-                        </li>
+                        </li> -->
                         <li class="nav-item active">
-                            <a class="nav-link" target="_blank" href="client/pages_client_index.php">Client Portal</a>
+                            <a class="nav-link" target="_blank" href="client/pages_client_index.php">Login</a>
                         </li>
                     </ul>
                     <a class="btn btn-danger" href="client/pages_client_signup.php" target="_blank">Join Us</a>
