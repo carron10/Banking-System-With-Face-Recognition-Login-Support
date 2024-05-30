@@ -23,8 +23,11 @@ if (isset($_POST['create_account'])) {
   $rc = $stmt->bind_param('sssssss', $name, $national_id, $client_number, $phone, $email, $password, $address);
   $stmt->execute();
 
+  $insert_id = $mysqli->insert_id;
   //declare a varible which will be passed to alert function
-  if ($stmt) {
+  if ($insert_id > 0) {
+    $_SESSION['email'] = $email;
+    $_SESSION['client_id'] = $insert_id;
     $success = "Account Created Successfully,You will be redirected to Login Page!!";
     ?>
       <script>
