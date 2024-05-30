@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 include('./conf/config.php');
 include('./conf/checklogin.php');
 include_once("../utils/utils.php");
@@ -25,19 +27,10 @@ if (isset($_POST['login'])) {
     } else {
         #echo "<script>alert('Access Denied Please Check Your Credentials');</script>";
         $err = "Access Denied Please Check Your Credentials,you will be redirected back to login page";
-
-?>
-        <!-- <script>
-            setTimeout(() => {
-                // window.location.href = "/client/pages_client_index.php";
-            }, 2000)
-        </script> -->
-    <?php
     }
 } else {
     // header("Location:pages_client_index.php");
 }
-
 
 
 /* Persisit System Settings On Brand */
@@ -112,3 +105,4 @@ while ($auth = $res->fetch_object()) {
     </html>
 <?php
 } ?>
+
