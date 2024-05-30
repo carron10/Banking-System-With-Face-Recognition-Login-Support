@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 include('./conf/config.php');
 include('./conf/checklogin.php');
 include_once("../utils/utils.php");
