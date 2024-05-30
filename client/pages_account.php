@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('conf/config.php');
+include_once("../utils/utils.php");
 include('conf/checklogin.php');
 check_login();
 $client_id = $_SESSION['client_id'];
@@ -57,6 +58,7 @@ if (isset($_POST['change_client_password'])) {
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <?php include("dist/_partials/head.php"); ?>
 <!-- Log on to codeastro.com for more projects! -->
+
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed ">
     <div class="wrapper">
         <!-- Navbar -->
@@ -68,7 +70,7 @@ if (isset($_POST['change_client_password'])) {
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-        <!-- Log on to codeastro.com for more projects! -->
+            <!-- Log on to codeastro.com for more projects! -->
             <!-- Content Header with logged in user details (Page header) -->
             <?php
             $client_id = $_SESSION['client_id'];
@@ -109,8 +111,8 @@ if (isset($_POST['change_client_password'])) {
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="pages_dashboard.php">Dashboard</a></li>
                                     <!-- <li class="breadcrumb-item"><a href="pages_manage_clients.php">iBanking Clients</a></li> -->
-                                    <li class="breadcrumb-item"><a href="pages_manage_clients.php">Manage</a></li>
-                                    <li class="breadcrumb-item active"><?php echo $row->name; ?></li>
+                                    <!-- <li class="breadcrumb-item"><a href="pages_manage_clients.php">Manage</a></li> -->
+                                    <li class="breadcrumb-item active">User</li>
                                 </ol>
                             </div>
                         </div>
@@ -121,7 +123,7 @@ if (isset($_POST['change_client_password'])) {
                 <section class="content">
                     <div class="container-fluid">
                         <div class="row">
-                        <!-- Log on to codeastro.com for more projects! -->
+                            <!-- Log on to codeastro.com for more projects! -->
                             <div class="col-md-3">
 
                                 <!-- Profile Image -->
@@ -196,7 +198,8 @@ if (isset($_POST['change_client_password'])) {
                         <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
                     </div>
                     </div>
-                    <!-- /.card --><!-- Log on to codeastro.com for more projects! -->
+                    <!-- /.card -->
+                                <!-- Log on to codeastro.com for more projects! -->
                             </div>
 
                             <!-- /.col -->
@@ -206,6 +209,7 @@ if (isset($_POST['change_client_password'])) {
                                         <ul class="nav nav-pills">
                                             <li class="nav-item"><a class="nav-link active" href="#update_Profile" data-toggle="tab">Update Profile</a></li>
                                             <li class="nav-item"><a class="nav-link" href="#Change_Password" data-toggle="tab">Change Password</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#Face_Login" data-toggle="tab">Face Login</a></li>
                                         </ul>
                                     </div><!-- /.card-header -->
                                     <div class="card-body">
@@ -290,6 +294,29 @@ if (isset($_POST['change_client_password'])) {
                                                 </form>
                                             </div>
                                             <!-- /.tab-pane -->
+                                            <!-- /Change Password -->
+                                            <div class="tab-pane" id="Face_Login">
+                                                <?php if (check_if_face_login_enabled($client_id)) { ?>
+                                                    <div class="container card ">
+
+                                                        <div class="card-head mt-3">
+                                                            <div class="card-title">Face security have been set already</div>
+                                                        </div>
+                                                        <div class="card-footer">
+                                                            <button class="btn btn-primary" id="reconfigure">Re-Configure</button>
+                                                        </div>
+
+                                                    </div>
+                                                <?php } else { ?>
+
+                                                    <div id="configure_face_login_alert" class="alert alert-warning alert-dismissible fade show" role="alert">
+                                                        You didn't configure face login, for improved security please add face security
+                                                        <a class="btn btn-primary" href="pages_client_add_face_security.php">Configure Face Login</a>
+                                                    </div>
+
+                                                <?php } ?>
+                                            </div>
+                                            <!-- /.tab-pane -->
                                         </div>
                                         <!-- /.tab-content -->
                                     </div><!-- /.card-body -->
@@ -324,6 +351,17 @@ if (isset($_POST['change_client_password'])) {
     <script src="dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="dist/js/demo.js"></script>
+    <script>
+        $(function() {
+            $("#reconfigure").click(function() {
+                send("/client/api/reconfigure_face_login.php").done((data) => {
+                    window.location.href = "/client/pages_client_add_face_security.php";
+                }).fail(
+                    swal("Failed", "Failed to recofigure Face logging", 'error')
+                )
+            })
+        })
+    </script>
 </body>
 
 </html>

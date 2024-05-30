@@ -9,6 +9,7 @@ if (isset($_POST['login'])) {
   $stmt->execute(); //execute bind
   $stmt->bind_result($email, $password, $client_id); //bind result
   $rs = $stmt->fetch();
+  $_SESSION['email'] = $email;
   $_SESSION['client_id'] = $client_id; //assaign session toc lient id
   //$uip=$_SERVER['REMOTE_ADDR'];
   //$ldate=date('d/m/Y h:i:s', time());

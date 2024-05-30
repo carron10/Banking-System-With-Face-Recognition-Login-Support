@@ -43,7 +43,7 @@
             <?php echo $profile_picture; ?>
           </div>
           <div class="info">
-            <a href="#" class="d-block"><?php echo $row->name; ?></a>
+            <a href="/client/pages_account.php" class="d-block"><?php echo $row->name; ?></a>
           </div>
         </div>
 
@@ -65,14 +65,14 @@
             <!-- ./DAshboard -->
 
             <!--Account -->
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a href="pages_account.php" class="nav-link">
                 <i class="nav-icon fas fa-user-tie"></i>
                 <p>
                   Account
                 </p>
               </a>
-            </li>
+            </li> -->
             <!-- ./Account-->
 
             <!--iBank Accounts-->

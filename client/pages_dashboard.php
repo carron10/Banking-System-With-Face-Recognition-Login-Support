@@ -2,6 +2,8 @@
 session_start();
 include('conf/config.php');
 include('conf/checklogin.php');
+include_once("../utils/utils.php");
+
 check_login();
 $client_id = $_SESSION['client_id'];
 
@@ -106,6 +108,7 @@ $stmt->close();
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <?php include("dist/_partials/head.php"); ?>
 <!-- Log on to codeastro.com for more projects! -->
+
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
 
   <div class="wrapper">
@@ -138,6 +141,14 @@ $stmt->close();
 
       <!-- Main content -->
       <section class="content">
+        <?php if (!check_if_face_login_enabled($client_id)) { ?>
+          <div id="configure_face_login_alert" class="alert alert-warning alert-dismissible fade show" role="alert">
+            You didn't configure face login, for improved security please add face security
+            <a class="btn btn-primary" href="pages_client_add_face_security.php">Configure Face Login</a>
+          </div>
+
+
+        <?php } ?>
         <div class="container-fluid">
           <div class="row">
             <!--iBank Deposits -->
@@ -261,7 +272,7 @@ $stmt->close();
                     <div class="col-sm-3 col-6">
                       <div class="description-block">
                         <h5 class="description-header">$ <?php echo $new_amt; ?> </h5>
-                        <span class="description-text">TOTAL MONEY IN  Account</span>
+                        <span class="description-text">TOTAL MONEY IN Account</span>
                       </div>
                       <!-- /.description-block -->
                     </div>

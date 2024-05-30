@@ -25,12 +25,12 @@ if (isset($_POST['create_account'])) {
 
   //declare a varible which will be passed to alert function
   if ($stmt) {
-    $success = "Account Created";
+    $success = "Account Created Successfully,You will be redirected to Login Page!!";
     ?>
       <script>
         setTimeout(() => {
           window.location.href = "/client/pages_client_index.php";
-        }, 2000)
+        },2500)
       </script>
   <?php
   } else {

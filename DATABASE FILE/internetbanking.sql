@@ -58,7 +58,7 @@ CREATE TABLE `ib_admin` (
   `email` varchar(200) NOT NULL,
   `number` varchar(200) NOT NULL,
   `password` varchar(200) NOT NULL,
-  `profile_pic` varchar(200) NOT NULL
+  `profile_pic` varchar(200)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
@@ -121,7 +121,8 @@ CREATE TABLE `ib_clients` (
   `address` varchar(200) NOT NULL,
   `email` varchar(200) NOT NULL,
   `password` varchar(200) NOT NULL,
-  `profile_pic` varchar(200) NOT NULL,
+  `profile_pic` varchar(200),
+  `face_login_token` varchar(200),
   `client_number` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -183,7 +184,7 @@ CREATE TABLE `ib_staff` (
   `email` varchar(200) NOT NULL,
   `password` varchar(200) NOT NULL,
   `sex` varchar(200) NOT NULL,
-  `profile_pic` varchar(200) NOT NULL
+  `profile_pic` varchar(200)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
