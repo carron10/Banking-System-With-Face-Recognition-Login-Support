@@ -13,12 +13,13 @@ if (isset($_POST['login'])) {
     $rs = $stmt->fetch();
     // Free the result set
     $stmt->free_result();
-    // $_SESSION['email'] = $email;
-    // $_SESSION['client_id'] = $client_id; //assaign session toc lient id
+
     //$uip=$_SERVER['REMOTE_ADDR'];
     //$ldate=date('d/m/Y h:i:s', time());
     if ($rs) { //if its sucessfull
         if (!check_if_face_login_enabled($client_id)) {
+            $_SESSION['email'] = $email;
+            $_SESSION['client_id'] = $client_id; //assaign session toc lient id
             header("location:pages_dashboard.php");
         }
     } else {
