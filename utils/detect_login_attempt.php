@@ -3,20 +3,42 @@
 include_once(__DIR__ . '/../client/conf/config.php');
 $client_id = null;
 
-function validateLoginCredentials($email, $password)
+function validateLoginCredentials(string $email, string $password): bool
 {
-    global $mysqli, $client_id;
-    $stmt = $mysqli->prepare("SELECT email, password, client_id  FROM ib_clients   WHERE email=? AND password=?"); //sql to log in user
-    $stmt->bind_param('ss', $email, $password); //bind fetched parameters
-    $stmt->execute(); //execute bind
-    $stmt->bind_result($email, $password, $client_id); //bind result
-    $rs = $stmt->fetch();
-    // Free the result set
-    $stmt->free_result();
+    global $mysqli,$client_id; // Assuming a global connection is necessary
 
+    if (!$mysqli instanceof mysqli) {
+        throw new InvalidArgumentException('Invalid database connection provided.');
+    }
 
-    return $rs;
+    try {
+        $stmt = $mysqli->prepare("SELECT email, password,client_id FROM ib_clients WHERE email=?");
+        if (!$stmt) {
+            throw new RuntimeException('Failed to prepare statement: ' . $mysqli->error);
+        }
+
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $stmt->bind_result($db_email, $db_password_hash,$client_id);
+        $stmt->fetch();
+
+        if (!$db_email) {
+            return false; // No matching email found
+        }
+
+        $passwordMatches = password_verify($password, $db_password_hash);
+
+        $stmt->close(); // Close the statement
+        return $passwordMatches;
+    } catch (Exception $e) {
+        // Log or handle the exception appropriately
+        error_log('Login validation error: ' . $e->getMessage());
+        return false;
+    }
 }
+
+
+
 function login($email, $password)
 {
     global $err, $client_id;
@@ -62,9 +84,9 @@ function login($email, $password)
         update_login_retrials($email, $r);
         if ($r >= $max_attempts) {
             $uuid = uniqid("", true);
-            update_token($email,$uuid);
+            update_token($email, $uuid);
             $user_email = $email;  // Replace with actual data retrieval
-            send_login_retrial_link($user_email, $_SERVER['REMOTE_ADDR']."/client/api/activate_account.php?token=$uuid");
+            send_login_retrial_link($user_email, $_SERVER['REMOTE_ADDR'] . "/client/api/activate_account.php?token=$uuid");
             // Optionally, lock the account or display a message to the user
             $err = "Your account have been temporary, you have reached the number of trials, Please check your email, we have sent your the activation code";
         ?>

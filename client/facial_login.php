@@ -9,7 +9,7 @@ include_once("../utils/detect_login_attempt.php");
 
 if (isset($_POST['login'])) {
     $email = $_POST['email'];
-    $password = sha1(md5($_POST['password'])); //double encrypt to increase security
+    $password =$_POST['password']; //double encrypt to increase security
     login($email,$password);
 } else {
     header("Location:pages_client_index.php");

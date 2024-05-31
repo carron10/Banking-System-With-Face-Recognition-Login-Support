@@ -12,7 +12,8 @@ if (isset($_POST['create_account'])) {
   $client_number = $_POST['client_number'];
   $phone = $_POST['phone'];
   $email = $_POST['email'];
-  $password = sha1(md5($_POST['password']));
+  $password = $_POST['password'];
+  $password = password_hash($password, PASSWORD_DEFAULT);
   $address  = $_POST['address'];
   $ip=get_ip_address();
   $agent=get_user_agent();
