@@ -2,7 +2,10 @@
 session_start();
 include('../conf/config.php');
 include('../conf/checklogin.php');
+include_once("../../utils/utils.php");
+
 $email = $_SESSION['email'];
+
 if (isset($email)) {
     $_SESSION['client_id'] = get_user_id($email);
 } else {

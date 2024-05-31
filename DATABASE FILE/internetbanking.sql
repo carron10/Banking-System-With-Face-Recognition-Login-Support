@@ -119,7 +119,7 @@ CREATE TABLE `ib_clients` (
   `national_id` varchar(200) NOT NULL,
   `phone` varchar(200) NOT NULL,
   `address` varchar(200) NOT NULL,
-  `email` varchar(200) NOT NULL,
+  `email` varchar(200) UNIQUE NOT NULL ,
   `password` varchar(200) NOT NULL,
   `profile_pic` varchar(200),
   `face_login_token` varchar(200),
