@@ -36,7 +36,7 @@ class FaceDetector {
     login(detector_url, email, register_token_callback) {
         var retrial = 0
 
-       var processimage= setInterval(() => {
+        var processimage = setInterval(() => {
             const canvas = document.querySelector(`#${this.element}  #canvas`)
             const context = canvas.getContext('2d');
             canvas.width = this.video.videoWidth;
@@ -61,16 +61,17 @@ class FaceDetector {
                     register_token_callback(data.token)
                 })
                 .catch(error => {
+
                     retrial += 1
 
-                    if(retrial==10){
-                    console.log(error);
-                    clearInterval(processimage)
-                    swal("Login Failed","Login failed","error")
+                    if (retrial == 20) {
+                        console.log(error);
+                        clearInterval(processimage)
+                        swal("Login Failed", "Login failed", "error")
                     }
-                    
+
                 });
-        }, 1000)
+        }, 2000)
 
     }
     register(detector_url, email, register_token_callback, re_register = false, user_exist_error = null) {
