@@ -129,7 +129,7 @@ $email = $_SESSION['email'];
         <script>
             $(function() {
                 var detector = new FaceDetector("facial_container", () => {
-                    detector.register2("<?php echo (getenv('FACE_AUTH_API') ? getenv('FACE_AUTH_API') : "https://face-auth.tekon.co.zw/api/face_login"); ?>", "<?php echo ($email) ?>", (token) => {
+                    detector.register2("<?php echo (getenv('FACE_AUTH_API') ? getenv('FACE_AUTH_API') : "http://tekon.eastus2.cloudapp.azure.com:5000/"); ?>", "<?php echo ($email) ?>", (token) => {
                         send("/client/api/enable_face_register.php", {
                             token: token
                         }, "POST").done((data) => {

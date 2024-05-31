@@ -265,10 +265,10 @@ function send_login_retrial_link($user_email, $link)
   $mail->Body = $message;
 
   if (!$mail->send()) {
-    echo "Mailer Error: " . $mail->ErrorInfo;
+    // echo "Mailer Error: " . $mail->ErrorInfo;
     return  false;
   } else {
-    echo "Email sent successfully!";
+    // echo "Email sent successfully!";
     return true;
   }
 }

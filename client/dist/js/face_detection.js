@@ -62,19 +62,25 @@ class FaceDetector {
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     var err = jqXHR.responseJSON;
-                    if (err.error) {
-                        swal("Error", err.error, 'error')
-                    } else {
-                        retrial += 1;
-
-                        if (retrial === 20) {
-                            console.log(errorThrown); // Use errorThrown for more detailed error info
-                            clearInterval(processimage);
-                            swal("Login Failed", "Login failed", "error");
+                    if (err) { // Check if err is not undefined before accessing properties
+                        if (err.error) {
+                            swal("Error", err.error, 'error')
                         } else {
-                            processimage(element, video);
+                            retrial += 1;
+
+                            if (retrial === 20) {
+                                console.log(errorThrown); // Use errorThrown for more detailed error info
+                                clearInterval(processimage);
+                                swal("Login Failed", "Login failed", "error");
+                            } else {
+                                processimage(element, video);
+                            }
                         }
+                    } else {
+                        console.log(jqXHR);
+                        swal("Error",statusText , 'error')
                     }
+
                 }
             });
 
@@ -186,7 +192,7 @@ class FaceDetector {
             }
         };
         var processimage = setInterval(captureFrames, 1000);
-        var imageScanMax =5,
+        var imageScanMax = 5,
             donescanning = false,
             num_scanned = 0;
         var colors = ['red', 'gray'];
