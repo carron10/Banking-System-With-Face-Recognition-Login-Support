@@ -36,7 +36,7 @@ class FaceDetector {
     login(detector_url, email, register_token_callback) {
         var retrial = 0
 
-       var processimage= setTimeout(() => {
+       var processimage= setInterval(() => {
             const canvas = document.querySelector(`#${this.element}  #canvas`)
             const context = canvas.getContext('2d');
             canvas.width = this.video.videoWidth;
