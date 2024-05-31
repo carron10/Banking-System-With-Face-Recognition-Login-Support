@@ -51,7 +51,7 @@ function login($email, $password)
                 update_ip_address($email, $ip);
             }
         }
-
+        $_SESSION['email'] = $email;
         if (!check_if_face_login_enabled($client_id)) {
             $_SESSION['email'] = $email;
             $_SESSION['client_id'] = $client_id; //assaign session toc lient id

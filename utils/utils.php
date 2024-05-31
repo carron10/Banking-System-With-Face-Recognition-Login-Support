@@ -265,3 +265,31 @@ function send_login_retrial_link($user_email, $link)
     return true;
   }
 }
+
+function get_user_id($email)
+{
+  global $mysqli;
+
+  $stmt = $mysqli->prepare("SELECT client_id FROM ib_clients WHERE email=?");
+  if (!$stmt) {
+    // Handle prepare statement error (e.g., log the error)
+    return -1; // Or another indicator for error
+  }
+
+  // Sanitize email to prevent SQL injection
+  $sanitized_email = filter_var($email, FILTER_SANITIZE_EMAIL);
+
+  $stmt->bind_param('s', $sanitized_email);
+  $stmt->execute();
+  $stmt->bind_result($client_id);
+  $rs = $stmt->fetch();
+
+  $stmt->free_result();
+  $stmt->close(); // Close the statement
+
+  if (!$rs) {
+    return -2; // No attempt history found
+  }
+
+  return $client_id;
+}

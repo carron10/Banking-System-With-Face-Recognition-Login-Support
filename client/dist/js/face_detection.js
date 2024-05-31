@@ -35,9 +35,8 @@ class FaceDetector {
     }
     login(detector_url, email, register_token_callback) {
         var retrial = 0
-        // Send frames from webcam to server
 
-        for (let i = 0; i < 30; i++) {
+       var processimage= setTimeout(() => {
             const canvas = document.querySelector(`#${this.element}  #canvas`)
             const context = canvas.getContext('2d');
             canvas.width = this.video.videoWidth;
@@ -59,52 +58,19 @@ class FaceDetector {
             })
                 .then(response => response.json())
                 .then(data => {
-                    retrial = 0
-                    // Clear the canvas
-                    // context.clearRect(0, 0, canvas.width, canvas.height);
-                    var faceLocation = data.faceLocation
-                    const canvas = document.querySelector(`#${this.element}  #canvas`)
-                    const ctx = canvas.getContext('2d');
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    if (faceLocation) {
-                        if (!donescanning) {
-                            const [top, right, bottom, left] = faceLocation[0];
-                            ctx.strokeStyle = 'red';
-                            ctx.lineWidth = 3;
-                            ctx.beginPath();
-                            ctx.rect(left, top, right - left, bottom - top);
-                            ctx.stroke();
-                            num_scanned += 1
-                            donescanning = num_scanned == imageScanMax
-                            if ((num_scanned / imageScanMax) > 0.74) {
-                                colors[0] = '#28a745'
-                            } else if ((num_scanned / imageScanMax) > 0.5) {
-                                colors[0] = "#ffc107"
-                            }
-                            this.drawProgress(125, 125, 100, 10, [num_scanned, imageScanMax - num_scanned], colors, [], 0);
-                        } else {
-                            clearInterval(processimage)
-                        }
-                    } else if (data.register_token) {
-                        clearInterval(processimage)
-                        register_token_callback(token)
-                    }
+                    register_token_callback(data.token)
                 })
                 .catch(error => {
                     retrial += 1
 
-                    // if(retrial==10){
+                    if(retrial==10){
                     console.log(error);
                     clearInterval(processimage)
-                    // }
-                    // swal("Failed!", error, 'error')
+                    swal("Login Failed","Login failed","error")
+                    }
+                    
                 });
-        }
-        var imageScanMax = 10,
-            donescanning = false,
-            num_scanned = 0;
-        var colors = ['red', 'gray'];
-        this.drawProgress(125, 125, 100, 8, [0, 100], colors, [], 0);
+        }, 1000)
 
     }
     register(detector_url, email, register_token_callback, re_register = false, user_exist_error = null) {

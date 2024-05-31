@@ -71,7 +71,7 @@ while ($auth = $res->fetch_object()) {
                             }, "POST").done((data) => {
                                 swal("Done!!", "Face Login Have been Added Successfully!!", 'success')
                                 setTimeout(() => {
-                                    window.location.href = "/client/pages_client_add_face_security.php";
+                                    window.location.href = "/client/.php";
                                 }, 2500)
                             }).fail(
                                 swal("Failed", "Failed to configure Face security,tria again!!", 'error')
