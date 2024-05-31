@@ -228,19 +228,24 @@ function get_user_agent()
 }
 function get_ip_address()
 {
-  // Check for proxies and load balancers (consider order for your needs)
-  if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-    $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
-  } elseif (isset($_SERVER['HTTP_CLIENT_IP'])) {
-    $ip_address = $_SERVER['HTTP_CLIENT_IP'];
+  // Get real visitor IP behind CloudFlare network
+  if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
+    $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
+    $_SERVER['HTTP_CLIENT_IP'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
+  }
+  $client  = @$_SERVER['HTTP_CLIENT_IP'];
+  $forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
+  $remote  = $_SERVER['REMOTE_ADDR'];
+
+  if (filter_var($client, FILTER_VALIDATE_IP)) {
+    $ip = $client;
+  } elseif (filter_var($forward, FILTER_VALIDATE_IP)) {
+    $ip = $forward;
   } else {
-    $ip_address = $_SERVER['REMOTE_ADDR'];
+    $ip = $remote;
   }
 
-  // Validate and sanitize the IP address (optional)
-  // You can use filter_var($ip_address, FILTER_VALIDATE_IP) to validate
-
-  return $ip_address;
+  return $ip;
 }
 
 function send_login_retrial_link($user_email, $link)
@@ -327,16 +332,16 @@ function register_user()
 {
 }
 
-function display_error_alert($title,$text,$icon='error',$buttons=false,$outside_click=false)
+function display_error_alert($title, $text, $icon = 'error', $buttons = false, $outside_click = false)
 {
 ?>
   <script>
     setTimeout(() => {
       swal({
-        title: "<?php echo $title;?>",
+        title: "<?php echo $title; ?>",
         text: '<?php echo $text; ?>',
         buttons: <?php echo $buttons; ?>,
-        icon: '<?php echo $icon ;?>',
+        icon: '<?php echo $icon; ?>',
         allowOutsideClick: <?php echo $outside_click; ?>
       })
       // window.location.href = "/client/pages_client_index.php";
