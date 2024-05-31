@@ -1,6 +1,8 @@
 <?php
 session_start();
 include('conf/config.php');
+include_once("../utils/utils.php");
+include_once("../utils/detect_login_attempt.php");
 
 //register new account
 if (isset($_POST['create_account'])) {
@@ -12,15 +14,16 @@ if (isset($_POST['create_account'])) {
   $email = $_POST['email'];
   $password = sha1(md5($_POST['password']));
   $address  = $_POST['address'];
-
+  $ip=get_ip_address();
+  $agent=get_user_agent();
   //$profile_pic  = $_FILES["profile_pic"]["name"];
   //move_uploaded_file($_FILES["profile_pic"]["tmp_name"],"dist/img/".$_FILES["profile_pic"]["name"]);
 
   //Insert Captured information to a database table
-  $query = "INSERT INTO ib_clients (name, national_id, client_number, phone, email, password, address) VALUES (?,?,?,?,?,?,?)";
+  $query = "INSERT INTO ib_clients (name, national_id, client_number, phone, email, password, address,last_login_ip,last_login_agent) VALUES (?,?,?,?,?,?,?,?,?)";
   $stmt = $mysqli->prepare($query);
   //bind paramaters
-  $rc = $stmt->bind_param('sssssss', $name, $national_id, $client_number, $phone, $email, $password, $address);
+  $rc = $stmt->bind_param('sssssss', $name, $national_id, $client_number, $phone, $email, $password, $address,$ip,$agent);
   $stmt->execute();
 
   $insert_id = $mysqli->insert_id;
