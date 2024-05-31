@@ -52,7 +52,6 @@ class FaceDetector {
                 },
                 body: JSON.stringify({
                     pic: imageData,
-                    re_register: re_register,
                     email: email
                 })
             })
