@@ -123,9 +123,11 @@ CREATE TABLE `ib_clients` (
   `password` varchar(200) NOT NULL,
   `profile_pic` varchar(200),
   `face_login_token` varchar(200),
+  `acc_token` varchar(200),
   `client_number` varchar(200) NOT NULL,
   `last_login_ip` varchar(200) NOT NULL,
-  "last_login_agent" varchar(200) not null
+  `last_login_agent` varchar(200) NOT NULL,
+  `last_login_attempts` int default 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --

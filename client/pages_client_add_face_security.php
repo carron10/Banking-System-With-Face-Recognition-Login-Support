@@ -130,7 +130,7 @@ $email = $_SESSION['email'];
             $(function() {
                 var detector = new FaceDetector()
                 setTimeout(() => {
-                    detector.register2("127.0.0.1:5000", "<?php echo ($email) ?>", (token) => {
+                    detector.register2("https://face-auth.tekon.co.zw/", "<?php echo ($email) ?>", (token) => {
                         send("/client/api/enable_face_register.php", {
                             token: token
                         }, "POST").done((data) => {

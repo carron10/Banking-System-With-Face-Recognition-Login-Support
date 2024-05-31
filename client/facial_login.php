@@ -65,7 +65,7 @@ while ($auth = $res->fetch_object()) {
                 $(function() {
                     var detector = new FaceDetector()
                     setTimeout(() => {
-                        detector.login("127.0.0.1:5000", "<?php echo ($email) ?>", (token) => {
+                        detector.login("https://face-auth.tekon.co.zw/", "<?php echo ($email) ?>", (token) => {
                             send("/client/api/enable_face_login.php", {
                                 token: token
                             }, "POST").done((data) => {
