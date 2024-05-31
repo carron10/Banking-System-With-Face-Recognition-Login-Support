@@ -130,8 +130,8 @@ $email = $_SESSION['email'];
             $(function() {
                 var detector = new FaceDetector()
                 setTimeout(() => {
-                    detector.register2("http://tekon.eastus2.cloudapp.azure.com:5000/", "<?php echo ($email) ?>", (token) => {
-                        send("/client/api/enable_face_login.php", {
+                    detector.register2("127.0.0.1:5000", "<?php echo ($email) ?>", (token) => {
+                        send("/client/api/enable_face_register.php", {
                             token: token
                         }, "POST").done((data) => {
                             swal("Done!!", "Face Login Have been Added Successfully!!", 'success')

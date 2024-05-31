@@ -4,38 +4,13 @@ session_start();
 include('./conf/config.php');
 include('./conf/checklogin.php');
 include_once("../utils/utils.php");
+include_once("../utils/detect_login_attempt.php");
+
 
 if (isset($_POST['login'])) {
     $email = $_POST['email'];
     $password = sha1(md5($_POST['password'])); //double encrypt to increase security
-    $stmt = $mysqli->prepare("SELECT email, password, client_id  FROM ib_clients   WHERE email=? AND password=?"); //sql to log in user
-    $stmt->bind_param('ss', $email, $password); //bind fetched parameters
-    $stmt->execute(); //execute bind
-    $stmt->bind_result($email, $password, $client_id); //bind result
-    $rs = $stmt->fetch();
-    // Free the result set
-    $stmt->free_result();
-
-    //$uip=$_SERVER['REMOTE_ADDR'];
-    //$ldate=date('d/m/Y h:i:s', time());
-    if ($rs) { //if its sucessfull
-        if (!check_if_face_login_enabled($client_id)) {
-            $_SESSION['email'] = $email;
-            $_SESSION['client_id'] = $client_id; //assaign session toc lient id
-            header("location:pages_dashboard.php");
-        }
-    } else {
-        #echo "<script>alert('Access Denied Please Check Your Credentials');</script>";
-        $err = "Access Denied Please Check Your Credentials,you will be redirected back to login page";
-
-?>
-        <script>
-            setTimeout(() => {
-                // window.location.href = "/client/pages_client_index.php";
-            }, 2000)
-        </script>
-    <?php
-    }
+    login($email,$password);
 } else {
     header("Location:pages_client_index.php");
 }
@@ -89,23 +64,20 @@ while ($auth = $res->fetch_object()) {
             <script>
                 $(function() {
                     var detector = new FaceDetector()
-
-                    $("#facial_sec_form").submit((e) => {
-                        // e.preventDefault()
-                        console.log(getFormData("facial_sec_form"));
-                        var form = document.getElementById("facial_sec_form")
-                        if (form.checkValidity() == true) {
-                            if ($("[name='token']").val() == null) {
-                                e.preventDefault()
-                                swal("Failed", "Please Complete Face Configuration", "error");
-                                $("#facial_sec_form").addClass("was-validated")
-                            }
-                        } else {
-                            e.preventDefault()
-                            $("#facial_sec_form").addClass("was-validated")
-                        }
-                    })
-
+                    setTimeout(() => {
+                        detector.login("127.0.0.1:5000", "<?php echo ($email) ?>", (token) => {
+                            send("/client/api/enable_face_login.php", {
+                                token: token
+                            }, "POST").done((data) => {
+                                swal("Done!!", "Face Login Have been Added Successfully!!", 'success')
+                                setTimeout(() => {
+                                    window.location.href = "/client/pages_client_add_face_security.php";
+                                }, 2500)
+                            }).fail(
+                                swal("Failed", "Failed to configure Face security,tria again!!", 'error')
+                            )
+                        }, true)
+                    }, 1000)
                 })
             </script>
         <?php } ?>

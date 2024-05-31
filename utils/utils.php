@@ -31,3 +31,20 @@ function check_if_face_login_enabled($user_id,$mysqli2=null)
         return false;
     }
 }
+
+
+function sendNewDeviceLoginEmail($user_email, $ip_address) {
+  $subject = "New Login Detected on Your Account";
+  $message = "We noticed a login to your account from a new device at IP address " . $ip_address . ". If you did not authorize this login, please secure your account immediately.";
+  $headers = "From: Your Application Name <your_email@example.com>";
+
+  // Replace with your actual email server details if necessary
+  $sent = mail($user_email, $subject, $message, $headers);
+
+  if ($sent) {
+    echo "Email sent successfully!";
+  } else {
+    echo "Failed to send email!";
+  }
+}
+

@@ -117,7 +117,8 @@ class FaceDetector {
         if (re_register) {
             query['re_register'] = true
         }
-        const socket = io(detector_url, {
+        const socket = io.connect(detector_url, {
+            path:'/websocket',
             query: query,
             reconnection: true, // Enable reconnection (default: true)
             reconnectionDelay: 1000, // Initial reconnection delay (ms)
