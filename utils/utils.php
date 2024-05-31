@@ -48,7 +48,7 @@ function update_login_retrials($email, $retrials = 0)
 {
   global $mysqli;
 
-  $stmt = $mysqli->prepare("UPDATE ib_clients SET last_login_attempts=?  WHERE $email=?");
+  $stmt = $mysqli->prepare("UPDATE ib_clients SET last_login_attempts=?  WHERE email=?");
 
   // Bind parameters and execute the statement
   $stmt->bind_param('is', $retrials, $email);
