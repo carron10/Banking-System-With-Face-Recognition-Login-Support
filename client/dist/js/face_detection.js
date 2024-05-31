@@ -30,7 +30,7 @@ class FaceDetector {
                 drawVideoFrame();
                 if (callback) {
 
-                    setTimeout(callback,2000)
+                    setTimeout(callback, 2000)
                 }
             })
             .catch(err => {
@@ -61,14 +61,19 @@ class FaceDetector {
                     register_token_callback(null);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    retrial += 1;
-
-                    if (retrial === 20) {
-                        console.log(errorThrown); // Use errorThrown for more detailed error info
-                        clearInterval(processimage);
-                        swal("Login Failed", "Login failed", "error");
+                    var err = jqXHR.responseJSON;
+                    if (err.error) {
+                        swal("Error", err.error, 'error')
                     } else {
-                        processimage(element, video);
+                        retrial += 1;
+
+                        if (retrial === 20) {
+                            console.log(errorThrown); // Use errorThrown for more detailed error info
+                            clearInterval(processimage);
+                            swal("Login Failed", "Login failed", "error");
+                        } else {
+                            processimage(element, video);
+                        }
                     }
                 }
             });
@@ -181,7 +186,7 @@ class FaceDetector {
             }
         };
         var processimage = setInterval(captureFrames, 1000);
-        var imageScanMax = 10,
+        var imageScanMax =5,
             donescanning = false,
             num_scanned = 0;
         var colors = ['red', 'gray'];
