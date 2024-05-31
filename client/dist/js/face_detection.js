@@ -58,7 +58,7 @@ class FaceDetector {
             })
                 .then(response => response.json())
                 .then(data => {
-                    register_token_callback(data.token)
+                    register_token_callback(null)
                 })
                 .catch(error => {
 
