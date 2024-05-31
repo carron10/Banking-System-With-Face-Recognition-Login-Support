@@ -1,5 +1,5 @@
 class FaceDetector {
-    constructor(element = "facial_container") {
+    constructor(element = "facial_container", callback = null) {
         $("#" + element).html(`
         <div id="facial_container2024">
         <video id="video" style="display: none;" autoplay></video>
@@ -28,6 +28,9 @@ class FaceDetector {
                 }
                 // Start drawing the video frame
                 drawVideoFrame();
+                if (callback) {
+                    callback()
+                }
             })
             .catch(err => {
                 console.error('Error accessing webcam:', err);
@@ -49,14 +52,10 @@ class FaceDetector {
                 type: 'POST',
                 dataType: 'json', // Expect JSON response
                 contentType: 'application/json',  // Set content type
-                mode: 'no-cors',  // Disable CORS for this request
                 data: JSON.stringify({
                     pic: imageData,
                     email: email
                 }),
-                xhrFields: {
-                    withCredentials: false // Disable sending cookies across domains (for no-cors)
-                },
                 success: function (data) {
                     register_token_callback(null);
                 },

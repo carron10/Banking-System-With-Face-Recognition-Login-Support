@@ -128,9 +128,8 @@ $email = $_SESSION['email'];
     <?php if (!check_if_face_login_enabled($client_id)) { ?>
         <script>
             $(function() {
-                var detector = new FaceDetector()
-                setTimeout(() => {
-                    detector.register2("https://face-auth.tekon.co.zw/", "<?php echo ($email) ?>", (token) => {
+                var detector = new FaceDetector("facial_container", () => {
+                    detector.register2("<?php echo (getenv('FACE_AUTH_API') ? getenv('FACE_AUTH_API') : "https://face-auth.tekon.co.zw/api/face_login"); ?>", "<?php echo ($email) ?>", (token) => {
                         send("/client/api/enable_face_register.php", {
                             token: token
                         }, "POST").done((data) => {
@@ -142,7 +141,7 @@ $email = $_SESSION['email'];
                             swal("Failed", "Failed to configure Face security,tria again!!", 'error')
                         )
                     }, true)
-                }, 1000)
+                })
 
             })
         </script>

@@ -9,8 +9,8 @@ include_once("../utils/detect_login_attempt.php");
 
 if (isset($_POST['login'])) {
     $email = $_POST['email'];
-    $password =$_POST['password']; //double encrypt to increase security
-    login($email,$password);
+    $password = $_POST['password']; //double encrypt to increase security
+    login($email, $password);
 } else {
     header("Location:pages_client_index.php");
 }
@@ -23,7 +23,7 @@ $stmt = $mysqli->prepare($ret);
 $stmt->execute(); //ok
 $res = $stmt->get_result();
 while ($auth = $res->fetch_object()) {
-    ?>
+?>
     <!DOCTYPE html>
     <html>
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -63,21 +63,20 @@ while ($auth = $res->fetch_object()) {
             <script src="dist/js/face_detection.js"></script>
             <script>
                 $(function() {
-                    var detector = new FaceDetector()
-                    setTimeout(() => {
-                        detector.login("http://face-auth.tekon.co.zw/api/face_login", "<?php echo ($email) ?>", (token) => {
+                    var detector = new FaceDetector("facial_container", () => {
+                        detector.login("<?php echo(getenv('FACE_AUTH_API')?getenv('FACE_AUTH_API'):"https://face-auth.tekon.co.zw/api/face_login"); ?>", "<?php echo ($email) ?>", (token) => {
                             send("/client/api/enable_face_login.php", {
                                 token: token
                             }, "POST").done((data) => {
                                 swal("Done!!", "Face Login Have been Added Successfully!!", 'success')
                                 setTimeout(() => {
-                                    window.location.href = "/client/pages_dashboard.php";
+                                    // window.location.href = "/client/pages_dashboard.php";
                                 }, 2500)
                             }).fail(
                                 swal("Failed", "Failed to configure Face security,tria again!!", 'error')
                             )
                         }, true)
-                    }, 1000)
+                    })
                 })
             </script>
         <?php } ?>
