@@ -29,7 +29,8 @@ class FaceDetector {
                 // Start drawing the video frame
                 drawVideoFrame();
                 if (callback) {
-                    callback()
+
+                    setTimeout(callback,2000)
                 }
             })
             .catch(err => {
