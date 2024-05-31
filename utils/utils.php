@@ -326,3 +326,21 @@ function check_if_user_exist($email)
 function register_user()
 {
 }
+
+function display_error_alert($title,$text,$icon='error',$buttons=false,$outside_click=false)
+{
+?>
+  <script>
+    setTimeout(() => {
+      swal({
+        title: "<?php echo $title;?>",
+        text: '<?php echo $text; ?>',
+        buttons: <?php echo $buttons; ?>,
+        icon: '<?php echo $icon ;?>',
+        allowOutsideClick: <?php echo $outside_click; ?>
+      })
+      // window.location.href = "/client/pages_client_index.php";
+    }, 1000)
+  </script>
+<?php
+}

@@ -98,12 +98,13 @@ function login($email, $password)
                 $user_email = $email;  // Replace with actual data retrieval
                 send_login_retrial_link($user_email, "https://tekon.co.zw/client/api/activate_account.php?token=$uuid");
                 // Optionally, lock the account or display a message to the user
-                $err = "Your account have been temporary banned, you have reached the number of trials, Please check your email, we have sent your the activation code";
+                display_error_alert("Account Login Attempt!!","Your account have been temporary banned, you have reached the number of trials, Please check your email, we have sent your the activation code,
+                check your email or a reactivation link");
             } else {
-                $err = "Access Denied Please Check Your Credentials,you will be redirected back to login page";
+                display_error_alert("Permision Denied!!","Access Denied Please Check Your Credentials,you will be redirected back to login page");
             }
         } else {
-            $err = "Access Denied Please Check Your Credentials,you will be redirected back to login page";
+            display_error_alert("Permision Denied!!","Access Denied Please Check Your Credentials,you will be redirected back to login page");
         }
         ?>
         <script>
