@@ -248,8 +248,8 @@ function send_login_retrial_link($user_email, $link)
   global $mail;
 
   $subject = "Account ReActivation!!";
-  $message = "You have incorrectly logged in for more many times, to secure your account
-  we have temporal stooped logins, to reauth click $link, 
+  $message = "You have incorrectly logged in for many times, to secure your account
+  we have temporal stoped logins on your account, to reactivate this, click <a href='$link'>$link</a>, 
   If you did not authorize this login, please secure your account immediately.";
 
 
