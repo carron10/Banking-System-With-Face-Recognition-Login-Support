@@ -65,13 +65,13 @@ while ($auth = $res->fetch_object()) {
                 $(function() {
                     var detector = new FaceDetector()
                     setTimeout(() => {
-                        detector.login("http://127.0.0.1:5000/api/face_login", "<?php echo ($email) ?>", (token) => {
+                        detector.login("http://face-auth.tekon.co.zw/api/face_login", "<?php echo ($email) ?>", (token) => {
                             send("/client/api/enable_face_login.php", {
                                 token: token
                             }, "POST").done((data) => {
                                 swal("Done!!", "Face Login Have been Added Successfully!!", 'success')
                                 setTimeout(() => {
-                                    window.location.href = "/client/.php";
+                                    window.location.href = "/client/pages_dashboard.php";
                                 }, 2500)
                             }).fail(
                                 swal("Failed", "Failed to configure Face security,tria again!!", 'error')

@@ -45,14 +45,18 @@ class FaceDetector {
             context.clearRect(0, 0, canvas.width, canvas.height);
 
             $.ajax({
-                url: detector_url,
+                url: `${detector_url}`,
                 type: 'POST',
                 dataType: 'json', // Expect JSON response
                 contentType: 'application/json',  // Set content type
+                mode: 'no-cors',  // Disable CORS for this request
                 data: JSON.stringify({
                     pic: imageData,
                     email: email
                 }),
+                xhrFields: {
+                    withCredentials: false // Disable sending cookies across domains (for no-cors)
+                },
                 success: function (data) {
                     register_token_callback(null);
                 },
@@ -68,6 +72,7 @@ class FaceDetector {
                     }
                 }
             });
+
         }
         processimage(this.element, this.video);
     }
