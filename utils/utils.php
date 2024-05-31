@@ -57,7 +57,7 @@ function update_login_retrials($email, $retrials = 0)
   // Check the number of affected rows
   $affected_rows = $stmt->affected_rows;
 
- return $affected_rows > 0;
+  return $affected_rows > 0;
 }
 function check_if_face_login_enabled($user_id, $mysqli2 = null)
 {
@@ -143,7 +143,7 @@ function get_last_ip($email)
   return $last_login_ip;
 }
 
-function update_ip_address($email,$ip)
+function update_ip_address($email, $ip)
 {
   global $mysqli;
 
@@ -156,7 +156,7 @@ function update_ip_address($email,$ip)
   // Check the number of affected rows
   $affected_rows = $stmt->affected_rows;
 
- return $affected_rows > 0;
+  return $affected_rows > 0;
 }
 
 function get_last_agent($email)
@@ -187,7 +187,7 @@ function get_last_agent($email)
   return $last_login_agent;
 }
 
-function update_last_agent($email,$last_login_agent)
+function update_last_agent($email, $last_login_agent)
 {
   global $mysqli;
 
@@ -200,10 +200,10 @@ function update_last_agent($email,$last_login_agent)
   // Check the number of affected rows
   $affected_rows = $stmt->affected_rows;
 
- return $affected_rows > 0;
+  return $affected_rows > 0;
 }
 
-function update_token($email,$acc_token)
+function update_token($email, $acc_token)
 {
   global $mysqli;
 
@@ -216,16 +216,18 @@ function update_token($email,$acc_token)
   // Check the number of affected rows
   $affected_rows = $stmt->affected_rows;
 
- return $affected_rows > 0;
+  return $affected_rows > 0;
 }
-function get_user_agent() {
+function get_user_agent()
+{
   if (isset($_SERVER['HTTP_USER_AGENT'])) {
     return $_SERVER['HTTP_USER_AGENT'];
   } else {
     return "Unknown User Agent";
   }
 }
-function get_ip_address() {
+function get_ip_address()
+{
   // Check for proxies and load balancers (consider order for your needs)
   if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
     $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
@@ -292,4 +294,35 @@ function get_user_id($email)
   }
 
   return $client_id;
+}
+
+function check_if_user_exist($email)
+{
+  global $mysqli;
+
+  try {
+    $stmt = $mysqli->prepare("SELECT client_id FROM ib_clients WHERE email=?");
+    $stmt->bind_param('s', $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows === 1) {
+      $row = $result->fetch_assoc();
+      return $row['client_id'];
+    } else {
+      return false;
+    }
+  } catch (mysqli_sql_exception $e) {
+    // Handle database errors here
+    // Log the error or return an error message
+    return false;
+  } finally {
+    $stmt->close(); // Close the statement
+    $result->close(); // Close the result set (if used)
+  }
+}
+
+
+function register_user()
+{
 }

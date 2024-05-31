@@ -6,6 +6,7 @@ include_once("../utils/detect_login_attempt.php");
 
 //register new account
 if (isset($_POST['create_account'])) {
+
   //Register  Client
   $name = $_POST['name'];
   $national_id = $_POST['national_id'];
@@ -15,33 +16,39 @@ if (isset($_POST['create_account'])) {
   $password = $_POST['password'];
   $password = password_hash($password, PASSWORD_DEFAULT);
   $address  = $_POST['address'];
-  $ip=get_ip_address();
-  $agent=get_user_agent();
-  //$profile_pic  = $_FILES["profile_pic"]["name"];
-  //move_uploaded_file($_FILES["profile_pic"]["tmp_name"],"dist/img/".$_FILES["profile_pic"]["name"]);
+  $ip = get_ip_address();
+  $agent = get_user_agent();
+  if (check_if_user_exist($email)) {
+    $err = "User already exist!!";
+  } else {
 
-  //Insert Captured information to a database table
-  $query = "INSERT INTO ib_clients (name, national_id, client_number, phone, email, password, address,last_login_ip,last_login_agent) VALUES (?,?,?,?,?,?,?,?,?)";
-  $stmt = $mysqli->prepare($query);
-  //bind paramaters
-  $rc = $stmt->bind_param('sssssssss', $name, $national_id, $client_number, $phone, $email, $password, $address,$ip,$agent);
-  $stmt->execute();
+    //$profile_pic  = $_FILES["profile_pic"]["name"];
+    //move_uploaded_file($_FILES["profile_pic"]["tmp_name"],"dist/img/".$_FILES["profile_pic"]["name"]);
 
-  $insert_id = $mysqli->insert_id;
-  //declare a varible which will be passed to alert function
-  if ($insert_id > 0) {
-    $_SESSION['email'] = $email;
-    $_SESSION['client_id'] = $insert_id;
-    $success = "Account Created Successfully,You will be redirected to Login Page!!";
-    ?>
+    //Insert Captured information to a database table
+    $query = "INSERT INTO ib_clients (name, national_id, client_number, phone, email, password, address,last_login_ip,last_login_agent) VALUES (?,?,?,?,?,?,?,?,?)";
+    $stmt = $mysqli->prepare($query);
+    //bind paramaters
+    $rc = $stmt->bind_param('sssssssss', $name, $national_id, $client_number, $phone, $email, $password, $address, $ip, $agent);
+    $stmt->execute();
+
+    $insert_id = $mysqli->insert_id;
+    //declare a varible which will be passed to alert function
+    if ($insert_id > 0) {
+      $_SESSION['email'] = $email;
+      $_SESSION['client_id'] = $insert_id;
+      $success = "Account Created Successfully,You will be redirected to Login Page!!";
+?>
       <script>
         setTimeout(() => {
           window.location.href = "/client/pages_dashboard.php";
-        },2500)
+        }, 2500)
       </script>
   <?php
-  } else {
-    $err = "Please Try Again Or Try Later";
+
+    } else {
+      $err = "Please Try Again Or Try Later";
+    }
   }
 }
 
@@ -51,7 +58,7 @@ $stmt = $mysqli->prepare($ret);
 $stmt->execute(); //ok
 $res = $stmt->get_result();
 while ($auth = $res->fetch_object()) {
-?>
+  ?>
   <!DOCTYPE html>
   <html><!-- Log on to codeastro.com for more projects! -->
   <meta http-equiv="content-type" content="text/html;charset=utf-8" />

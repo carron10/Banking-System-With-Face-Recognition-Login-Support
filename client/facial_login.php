@@ -64,14 +64,18 @@ while ($auth = $res->fetch_object()) {
             <script>
                 $(function() {
                     var detector = new FaceDetector("facial_container", () => {
-                        detector.login("<?php echo(getenv('FACE_AUTH_API')?getenv('FACE_AUTH_API').'api/face_login':"https://face-auth.tekon.co.zw/api/face_login"); ?>", "<?php echo ($email) ?>", (token) => {
+                        detector.login("<?php echo (getenv('FACE_AUTH_API') ? getenv('FACE_AUTH_API') . 'api/face_login' : "https://face-auth.tekon.co.zw/api/face_login"); ?>", "<?php echo ($email) ?>", (token) => {
                             send("/client/api/enable_face_login.php", {
                                 token: token
                             }, "POST").done((data) => {
-                                swal("Done!!", "Face Login Have been Added Successfully!!", 'success')
+                                swal({
+                                    title: 'Login Successs!!',
+                                    text: 'Face login succeded, you will be redirected to dashboard in 2 seconds.',
+                                    buttons: false
+                                })
                                 setTimeout(() => {
                                     window.location.href = "/client/pages_dashboard.php";
-                                }, 2500)
+                                },2000)
                             }).fail(
                                 swal("Failed", "Failed to configure Face security,tria again!!", 'error')
                             )
