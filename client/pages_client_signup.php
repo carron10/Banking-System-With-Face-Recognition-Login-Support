@@ -23,7 +23,7 @@ if (isset($_POST['create_account'])) {
   $query = "INSERT INTO ib_clients (name, national_id, client_number, phone, email, password, address,last_login_ip,last_login_agent) VALUES (?,?,?,?,?,?,?,?,?)";
   $stmt = $mysqli->prepare($query);
   //bind paramaters
-  $rc = $stmt->bind_param('sssssss', $name, $national_id, $client_number, $phone, $email, $password, $address,$ip,$agent);
+  $rc = $stmt->bind_param('sssssssss', $name, $national_id, $client_number, $phone, $email, $password, $address,$ip,$agent);
   $stmt->execute();
 
   $insert_id = $mysqli->insert_id;
