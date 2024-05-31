@@ -35,44 +35,41 @@ class FaceDetector {
     }
     login(detector_url, email, register_token_callback) {
         var retrial = 0
-
-        var processimage = setInterval(() => {
-            const canvas = document.querySelector(`#${this.element}  #canvas`)
+        function processimage(element, video) {
+            const canvas = document.querySelector(`#${element}  #canvas`)
             const context = canvas.getContext('2d');
-            canvas.width = this.video.videoWidth;
-            canvas.height = this.video.videoHeight;
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
             const imageData = canvas.toDataURL('image/jpeg');
             context.clearRect(0, 0, canvas.width, canvas.height);
 
-            fetch(detector_url, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
+            $.ajax({
+                url: detector_url,
+                type: 'POST',
+                dataType: 'json', // Expect JSON response
+                contentType: 'application/json',  // Set content type
+                data: JSON.stringify({
                     pic: imageData,
                     email: email
-                })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    register_token_callback(null)
-                })
-                .catch(error => {
+                }),
+                success: function (data) {
+                    register_token_callback(null);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    retrial += 1;
 
-                    retrial += 1
-
-                    if (retrial == 20) {
-                        console.log(error);
-                        clearInterval(processimage)
-                        swal("Login Failed", "Login failed", "error")
+                    if (retrial === 20) {
+                        console.log(errorThrown); // Use errorThrown for more detailed error info
+                        clearInterval(processimage);
+                        swal("Login Failed", "Login failed", "error");
+                    } else {
+                        processimage(element, video);
                     }
-
-                });
-        }, 2000)
-
+                }
+            });
+        }
+        processimage(this.element, this.video);
     }
     register(detector_url, email, register_token_callback, re_register = false, user_exist_error = null) {
         var retrial = 0
