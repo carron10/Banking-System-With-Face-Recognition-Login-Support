@@ -147,7 +147,7 @@ function update_ip_address($email,$ip)
 {
   global $mysqli;
 
-  $stmt = $mysqli->prepare("UPDATE ib_clients SET last_login_ip=?  WHERE $email=?");
+  $stmt = $mysqli->prepare("UPDATE ib_clients SET last_login_ip=?  WHERE email=?");
 
   // Bind parameters and execute the statement
   $stmt->bind_param('ss', $ip, $email);
@@ -191,7 +191,7 @@ function update_last_agent($email,$last_login_agent)
 {
   global $mysqli;
 
-  $stmt = $mysqli->prepare("UPDATE ib_clients SET last_login_agent=?  WHERE $email=?");
+  $stmt = $mysqli->prepare("UPDATE ib_clients SET last_login_agent=?  WHERE email=?");
 
   // Bind parameters and execute the statement
   $stmt->bind_param('ss', $last_login_agent, $email);
@@ -207,7 +207,7 @@ function update_token($email,$acc_token)
 {
   global $mysqli;
 
-  $stmt = $mysqli->prepare("UPDATE ib_clients SET acc_token=?  WHERE $email=?");
+  $stmt = $mysqli->prepare("UPDATE ib_clients SET acc_token=?  WHERE email=?");
 
   // Bind parameters and execute the statement
   $stmt->bind_param('ss', $acc_token, $email);
